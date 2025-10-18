@@ -282,3 +282,38 @@ class UObject : public UObjectBaseUtility
               (parameter_declaration
                 type: (primitive_type)
                declarator: (identifier)))))))))
+
+
+===
+Unreal Declaration Macros Test
+===
+
+DECLARE_LOG_CATEGORY_EXTERN(LogObj, Log, All);
+
+ENUM_CLASS_FLAGS(EEditChangePropagationFlags);
+
+class MyTestClass
+{
+	DECLARE_FUNCTION(execUndefined);
+};
+
+---
+
+(translation_unit
+  (unreal_declaration_macro
+    name: (identifier)
+    arguments: (argument_list
+      (identifier)
+      (identifier)
+      (identifier)))
+  (unreal_declaration_macro
+    name: (identifier)
+    arguments: (argument_list
+      (identifier)))
+  (class_specifier
+    name: (type_identifier)
+    body: (field_declaration_list
+      (unreal_declaration_macro
+        name: (identifier)
+        arguments: (argument_list
+        (identifier))))))

@@ -141,6 +141,11 @@ module.exports = grammar(C, {
       alias($.constructor_or_destructor_definition, $.function_definition),
       alias($.operator_cast_definition, $.function_definition),
       alias($.operator_cast_declaration, $.declaration),
+
+
+      //unreal
+      $.unreal_declaration_macro,
+      //unreal
     ),
     _block_item: ($, original) => choice(
       ...original.members.filter((member) => member.content?.name != '_old_style_function_definition'),
@@ -570,10 +575,17 @@ module.exports = grammar(C, {
       $.static_assert_declaration,
       $.consteval_block_declaration,
       ';',
+
+      //unreael
+      $.unreal_declaration_macro,
+      //unreal
     ),
 
     field_declaration: $ => seq(
-      optional(choice($.uproperty_macro, $.ufunction_macro)), // <<< 追加
+      //unreal
+      optional($.unreal_deprecated_macro),
+      optional(choice($.uproperty_macro, $.ufunction_macro)),
+      //unreal
       $._declaration_specifiers,
       commaSep(seq(
         field('declarator', $._field_declarator),
@@ -588,7 +600,10 @@ module.exports = grammar(C, {
     ),
 
     inline_method_definition: $ => seq(
-      optional($.ufunction_macro), // <<< 追加
+      //unreal
+      optional($.unreal_deprecated_macro),
+      optional($.ufunction_macro),
+      //unreal
       $._declaration_specifiers,
       field('declarator', $._field_declarator),
       choice(
@@ -1745,6 +1760,30 @@ module.exports = grammar(C, {
       field('body', $.enumerator_list),
       ';'
     )),
+
+    unreal_deprecated_macro: $ => seq(
+        'UE_DEPRECATED',
+        '(',
+        $.expression, // 5.1 などをパース
+        ',',
+        $.string_literal,
+        ')'
+    ),
+
+    // DECLARE_FUNCTION(...); ENUM_CLASS_FLAGS(...); などをキャッチ
+    unreal_declaration_macro: $ => seq(
+      field('name', alias(
+          choice(
+            'DECLARE_FUNCTION',
+            'DECLARE_LOG_CATEGORY_EXTERN',
+            'ENUM_CLASS_FLAGS'
+            // 他に Object.h で見かけたらここに追加してください
+          ), 
+          $.identifier // ハイライトのために identifier としてエイリアス
+      )),
+      field('arguments', $.argument_list),
+      ';'
+    ),
     // --- END: UNREAL ENGINE RULES ---
   },
 });
