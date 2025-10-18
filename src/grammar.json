@@ -4925,6 +4925,10 @@
         {
           "type": "STRING",
           "value": "thread_local"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "unreal_api_specifier"
         }
       ]
     },
@@ -7322,6 +7326,10 @@
         {
           "type": "SYMBOL",
           "name": "splice_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "unreal_api_specifier"
         }
       ]
     },
@@ -18179,8 +18187,15 @@
       ]
     },
     "unreal_api_specifier": {
-      "type": "SYMBOL",
-      "name": "identifier"
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "PATTERN",
+          "value": "[A-Z0-9_]+_API"
+        }
+      }
     },
     "uclass_macro": {
       "type": "SEQ",
@@ -18794,6 +18809,10 @@
     [
       "splice_type_specifier",
       "splice_expression"
+    ],
+    [
+      "storage_class_specifier",
+      "expression"
     ]
   ],
   "precedences": [

@@ -36,7 +36,7 @@ class MYPROJECT_API AMyActor : public AActor
 (translation_unit
   (unreal_class_declaration
     (uclass_macro)
-    (unreal_api_specifier (identifier))
+    (unreal_api_specifier)
     name: (type_identifier)
     (base_class_clause
       (access_specifier)
@@ -184,3 +184,101 @@ public:
         type: (primitive_type)
         declarator: (field_identifier)
         default_value: (number_literal)))))
+    
+
+===
+UObject Class Definition Test
+===
+
+class UObject : public UObjectBaseUtility
+{
+	// Declarations
+	DECLARE_CLASS(UObject,UObject,CLASS_Abstract|CLASS_Intrinsic|CLASS_MatchedSerializers,CASTCLASS_None,TEXT("/Script/CoreUObject"),COREUOBJECT_API)
+	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UObject)
+	typedef UObject WithinClass;
+
+	/** Default constructor */
+	COREUOBJECT_API UObject();
+
+	/** Constructor that takes an ObjectInitializer. */
+	COREUOBJECT_API UObject(const FObjectInitializer& ObjectInitializer);
+
+	/** Utility function for templates below */
+	COREUOBJECT_API UObject* CreateDefaultSubobject(FName SubobjectFName, UClass* ReturnType, UClass* ClassToCreateByDefault, bool bIsRequired, bool bIsTransient);
+};
+
+---
+
+(translation_unit
+  (class_specifier
+    name: (type_identifier)
+    (base_class_clause
+      (access_specifier)
+      (type_identifier))
+    body: (field_declaration_list
+      (comment)
+      (unreal_declare_class_macro
+        (identifier)
+        (identifier)
+        (binary_expression
+          left: (binary_expression
+            left: (identifier)
+            right: (identifier))
+          right: (identifier))
+        (identifier)
+        (call_expression
+          function: (identifier)
+          arguments: (argument_list
+            (string_literal
+              (string_content))))
+        (unreal_api_specifier))
+      (unreal_define_default_object_initializer_macro
+        (identifier))
+      (type_definition
+        type: (type_identifier)
+        declarator: (type_identifier))
+      (comment)
+      (declaration
+        (storage_class_specifier
+          (unreal_api_specifier))
+        declarator: (function_declarator
+          declarator: (identifier)
+          parameters: (parameter_list)))
+      (comment)
+      (declaration
+        (storage_class_specifier
+          (unreal_api_specifier))
+        declarator: (function_declarator
+          declarator: (identifier)
+          parameters: (parameter_list
+            (parameter_declaration
+              (type_qualifier)
+              type: (type_identifier)
+              declarator: (reference_declarator
+                (identifier))))))
+      (comment)
+      (field_declaration
+        (storage_class_specifier
+          (unreal_api_specifier))
+        type: (type_identifier)
+        declarator: (pointer_declarator
+            declarator: (function_declarator
+            declarator: (field_identifier)
+            parameters: (parameter_list
+              (parameter_declaration
+                type: (type_identifier)
+                declarator: (identifier))
+              (parameter_declaration
+                type: (type_identifier)
+                declarator: (pointer_declarator
+                  declarator: (identifier)))
+              (parameter_declaration
+                type: (type_identifier)
+                declarator: (pointer_declarator
+                  declarator: (identifier)))
+              (parameter_declaration
+                type: (primitive_type)
+                declarator: (identifier))
+              (parameter_declaration
+                type: (primitive_type)
+               declarator: (identifier)))))))))

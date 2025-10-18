@@ -21,7 +21,7 @@
 (ufunction_macro   ["(" ")"] @punctuation.special)
 
 ; Unreal API specifier (e.g. MYPROJECT_API)
-(unreal_api_specifier (identifier) @type.qualifier)
+(unreal_api_specifier) @type.qualifier
 
 ;; -----------------------------------------------------
 ;; Unreal Specifiers のハイライト設定

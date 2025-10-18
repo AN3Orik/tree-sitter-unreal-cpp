@@ -320,6 +320,10 @@
         "named": true
       },
       {
+        "type": "unreal_api_specifier",
+        "named": true
+      },
+      {
         "type": "update_expression",
         "named": true
       },
@@ -6669,7 +6673,17 @@
   {
     "type": "storage_class_specifier",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "unreal_api_specifier",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "string_literal",
@@ -7738,21 +7752,6 @@
         },
         {
           "type": "virtual_specifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "unreal_api_specifier",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
           "named": true
         }
       ]
@@ -9316,6 +9315,10 @@
   {
     "type": "union",
     "named": false
+  },
+  {
+    "type": "unreal_api_specifier",
+    "named": true
   },
   {
     "type": "unreal_meta_key",

@@ -101,6 +101,10 @@ module.exports = grammar(C, {
     [$.qualified_field_identifier, $.template_method, $.template_type],
     [$.type_specifier, $.template_type, $.template_function, $.expression],
     [$.splice_type_specifier, $.splice_expression],
+
+    //unreal
+    [$.storage_class_specifier, $.expression],
+    //
   ],
 
   inline: ($, original) => original.concat([
@@ -344,9 +348,10 @@ module.exports = grammar(C, {
     )),
 
     // The `auto` storage class is removed in C++0x in order to allow for the `auto` type.
-    storage_class_specifier: (_, original) => choice(
+    storage_class_specifier: ($, original) => choice(
       ...original.members.filter((member) => member.value !== 'auto'),
       'thread_local',
+      $.unreal_api_specifier, // <-- これを追加
     ),
 
     dependent_type: $ => prec.dynamic(-1, prec.right(seq(
@@ -1039,6 +1044,9 @@ module.exports = grammar(C, {
       $.fold_expression,
       $.reflect_expression,
       $.splice_expression,
+      // unreal
+      $.unreal_api_specifier,
+      //unreal
     ),
 
     _string: $ => choice(
@@ -1675,13 +1683,12 @@ module.exports = grammar(C, {
 
     unreal_specifier_list: $ => commaSep1($.unreal_specifier),
 
-    unreal_api_specifier: $ => $.identifier,
+    unreal_api_specifier: $ => token(prec(1, /[A-Z0-9_]+_API/)),
 
     uclass_macro: $ => seq('UCLASS', '(', field('specifiers', optional($.unreal_specifier_list)), ')'),
     ustruct_macro: $ => seq('USTRUCT', '(', field('specifiers', optional($.unreal_specifier_list)), ')'),
     uenum_macro: $ => seq('UENUM', '(', field('specifiers', optional($.unreal_specifier_list)), ')'),
     
-    // ↓↓↓ ここからが今回の修正箇所です ↓↓↓
 
     // 1. セミコロンを含まない基本ルールを定義（名前の先頭に_を追加）
     // _unreal_body_macro: $ => seq('GENERATED_BODY', '(', ')'),
@@ -1692,7 +1699,6 @@ module.exports = grammar(C, {
     //     seq($._unreal_body_macro, ';')      // GENERATED_BODY();
     // ),
    unreal_body_macro: $ => seq('GENERATED_BODY', '(', ')'),
-    // ↑↑↑ ここまでが今回の修正箇所です ↑↑↑
 
     unreal_declare_class_macro: $ => seq(
       'DECLARE_CLASS',
