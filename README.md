@@ -50,7 +50,7 @@ return {
         require('nvim-treesitter.parsers').cpp = {
           install_info = {
             url  = 'https://github.com/taku25/tree-sitter-unreal-cpp',
-            revision  = '04ee0a7bbb303940e89e446e710192651ae14965',
+            revision  = '7f2fb3de758f6a542cbd338fc13ff37b2f1b05ee',
           },
         }
 
