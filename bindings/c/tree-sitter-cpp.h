@@ -7,7 +7,7 @@ typedef struct TSLanguage TSLanguage;
 extern "C" {
 #endif
 
-const TSLanguage *tree_sitter_unreal_cpp(void);
+const TSLanguage *tree_sitter_cpp(void);
 
 #ifdef __cplusplus
 }

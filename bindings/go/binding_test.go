@@ -8,7 +8,7 @@ import (
 )
 
 func TestCanLoadGrammar(t *testing.T) {
-	language := tree_sitter.NewLanguage(tree_sitter_unreal_cpp.Language())
+	language := tree_sitter.NewLanguage(tree_sitter_cpp.Language())
 	if language == nil {
 		t.Errorf("Error loading C++ grammar")
 	}

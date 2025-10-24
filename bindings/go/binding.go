@@ -9,5 +9,5 @@ import "unsafe"
 
 // Get the tree-sitter Language for this grammar.
 func Language() unsafe.Pointer {
-	return unsafe.Pointer(C.tree_sitter_unreal_cpp())
+	return unsafe.Pointer(C.tree_sitter_cpp())
 }

@@ -397,12 +397,15 @@ class MyClass
 Pragma Directive Test
 ===
 
+// Copyright Epic Games, Inc. All Rights Reserved.
+
 #pragma once
 #pragma warning(disable: 4996)
 
 ---
 
 (translation_unit
+  (comment)
   (preproc_call
     directive: (preproc_directive)
     argument: (preproc_arg))

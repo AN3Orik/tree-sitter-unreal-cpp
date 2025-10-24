@@ -1,9 +1,9 @@
 {
   "grammars": [
     {
-      "name": "unreal_cpp",
-      "camelcase": "UnrealCPP",
-      "scope": "source.unreal_cpp",
+      "name": "cpp",
+      "camelcase": "CPP",
+      "scope": "source.cpp",
       "path": ".",
       "file-types": [
         "cc",
