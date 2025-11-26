@@ -164,6 +164,10 @@
         {
           "type": "SYMBOL",
           "name": "unreal_declaration_macro"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "unreal_pragma_macro"
         }
       ]
     },
@@ -284,6 +288,10 @@
           },
           "named": true,
           "value": "declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "unreal_pragma_macro"
         }
       ]
     },
@@ -18066,6 +18074,17 @@
       },
       "named": true,
       "value": "namespace_identifier"
+    },
+    "unreal_pragma_macro": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "PATTERN",
+          "value": "PRAGMA_[A-Z0-9_]+"
+        }
+      }
     },
     "unreal_specifier_keyword": {
       "type": "CHOICE",

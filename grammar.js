@@ -148,6 +148,7 @@ module.exports = grammar(C, {
 
       //unreal
       $.unreal_declaration_macro,
+      $.unreal_pragma_macro,
       //unreal
     ),
 
@@ -187,6 +188,10 @@ module.exports = grammar(C, {
       alias($.constructor_or_destructor_definition, $.function_definition),
       alias($.operator_cast_definition, $.function_definition),
       alias($.operator_cast_declaration, $.declaration),
+
+      // ▼▼▼ 追加: 関数内での PRAGMA マクロを許可 ▼▼▼
+      $.unreal_pragma_macro,
+      // ▲▲▲ 追加完了 ▲▲▲
     ),
 
     // Types
@@ -1688,6 +1693,11 @@ module.exports = grammar(C, {
     _namespace_identifier: $ => alias($.identifier, $.namespace_identifier),
 
 
+
+    // ▼▼▼ 追加: PRAGMA_ から始まる大文字のマクロを単独ステートメントとして許可 ▼▼▼
+    unreal_pragma_macro: $ => token(prec(1, /PRAGMA_[A-Z0-9_]+/)),
+    // ▲▲▲ 追加完了 ▲▲▲
+    
     // --- START: UNREAL ENGINE RULES ---
     unreal_specifier_keyword: $ => choice(
      // UCLASS / USTRUCT / UENUM でよく使われるキーワード

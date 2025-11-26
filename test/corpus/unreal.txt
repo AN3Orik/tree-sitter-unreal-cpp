@@ -621,3 +621,34 @@ class AMyClass : public AActor
                   key: (unreal_specifier_keyword)
                   value: (string_literal
                 (string_content)))))))))))
+
+
+
+===
+Unreal Pragma Macros in Function Scope
+===
+
+void MyFunction()
+{
+	PRAGMA_DISABLE_DEPRECATION_WARNINGS
+	// Some deprecated call
+	OldFunction();
+	PRAGMA_ENABLE_DEPRECATION_WARNINGS
+}
+
+---
+
+(translation_unit
+  (function_definition
+    type: (primitive_type)
+    declarator: (function_declarator
+      declarator: (identifier)
+      parameters: (parameter_list))
+    body: (compound_statement
+      (unreal_pragma_macro)
+      (comment)
+      (expression_statement
+        (call_expression
+          function: (identifier)
+          arguments: (argument_list)))
+      (unreal_pragma_macro))))

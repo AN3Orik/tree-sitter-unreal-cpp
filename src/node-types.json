@@ -1779,6 +1779,10 @@
           "named": true
         },
         {
+          "type": "unreal_pragma_macro",
+          "named": true
+        },
+        {
           "type": "using_declaration",
           "named": true
         }
@@ -2318,6 +2322,10 @@
           "named": true
         },
         {
+          "type": "unreal_pragma_macro",
+          "named": true
+        },
+        {
           "type": "using_declaration",
           "named": true
         }
@@ -2801,6 +2809,10 @@
         },
         {
           "type": "type_specifier",
+          "named": true
+        },
+        {
+          "type": "unreal_pragma_macro",
           "named": true
         },
         {
@@ -5532,6 +5544,10 @@
           "named": true
         },
         {
+          "type": "unreal_pragma_macro",
+          "named": true
+        },
+        {
           "type": "unreal_struct_declaration",
           "named": true
         },
@@ -5704,6 +5720,10 @@
           "named": true
         },
         {
+          "type": "unreal_pragma_macro",
+          "named": true
+        },
+        {
           "type": "unreal_struct_declaration",
           "named": true
         },
@@ -5844,6 +5864,10 @@
         },
         {
           "type": "unreal_function_declaration",
+          "named": true
+        },
+        {
+          "type": "unreal_pragma_macro",
           "named": true
         },
         {
@@ -6083,6 +6107,10 @@
           "named": true
         },
         {
+          "type": "unreal_pragma_macro",
+          "named": true
+        },
+        {
           "type": "unreal_struct_declaration",
           "named": true
         },
@@ -6252,6 +6280,10 @@
         },
         {
           "type": "unreal_function_declaration",
+          "named": true
+        },
+        {
+          "type": "unreal_pragma_macro",
           "named": true
         },
         {
@@ -7597,6 +7629,10 @@
         },
         {
           "type": "unreal_enum_declaration",
+          "named": true
+        },
+        {
+          "type": "unreal_pragma_macro",
           "named": true
         },
         {
@@ -9648,6 +9684,10 @@
   },
   {
     "type": "unreal_meta_key",
+    "named": true
+  },
+  {
+    "type": "unreal_pragma_macro",
     "named": true
   },
   {
