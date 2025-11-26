@@ -31,7 +31,6 @@ class MYPROJECT_API AMyActor : public AActor
 {
 	GENERATED_BODY()
 };
-
 ---
 (translation_unit
   (unreal_class_declaration
@@ -54,7 +53,6 @@ enum class EMyEnum : uint8_t
 	EME_Val1,
 	EME_Val2
 };
-
 ---
 (translation_unit
   (unreal_enum_declaration
@@ -81,8 +79,7 @@ class AMyNewActor : public AActor
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	int32 Health;
-
-	UFUNCTION(BlueprintCallable, Category = "MyCategory")
+UFUNCTION(BlueprintCallable, Category = "MyCategory")
 	void MyFunction();
 
 protected:
@@ -92,7 +89,6 @@ protected:
         // Do something
     }
 };
-
 ---
 (translation_unit
   (unreal_class_declaration
@@ -109,7 +105,8 @@ protected:
           specifiers: (unreal_specifier_list
             (unreal_specifier (unreal_specifier_keyword))
             (unreal_specifier (unreal_specifier_keyword))
-            (unreal_specifier
+     
+       (unreal_specifier
               key: (unreal_specifier_keyword)
                   value: (string_literal
                     (string_content)))))
@@ -117,14 +114,16 @@ protected:
         declarator: (field_identifier))
       (field_declaration
         (ufunction_macro
-          specifiers: (unreal_specifier_list
+   
+       specifiers: (unreal_specifier_list
             (unreal_specifier (unreal_specifier_keyword))
             (unreal_specifier
               key: (unreal_specifier_keyword)
               value: (string_literal
                   (string_content)))))
             type: (primitive_type)
-            declarator: (function_declarator
+      
+      declarator: (function_declarator
           declarator: (field_identifier)
           parameters: (parameter_list)))
       (access_specifier)
@@ -134,13 +133,14 @@ protected:
             (unreal_specifier (unreal_specifier_keyword))
             (unreal_specifier (unreal_specifier_keyword))))
         type: (primitive_type)
-        declarator: (function_declarator
+     
+   declarator: (function_declarator
           declarator: (field_identifier)
           parameters: (parameter_list))
         body: (compound_statement
           (comment))))))
 
-=====
+===
 USTRUCT Test
 ===
 
@@ -151,11 +151,9 @@ struct FSplineNodeData
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FTransform Transform = FTransform::Identity;
-    
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+UPROPERTY(EditAnywhere, BlueprintReadWrite)
     float test = 0.0f;
 };
-
 ---
 (translation_unit
   (unreal_struct_declaration
@@ -171,7 +169,8 @@ public:
           specifiers: (unreal_specifier_list
             (unreal_specifier (unreal_specifier_keyword))
             (unreal_specifier (unreal_specifier_keyword))))
-        type: (type_identifier)
+     
+   type: (type_identifier)
         declarator: (field_identifier)
         default_value: (qualified_identifier
           scope: (namespace_identifier)
@@ -181,7 +180,8 @@ public:
           specifiers: (unreal_specifier_list
             (unreal_specifier (unreal_specifier_keyword))
             (unreal_specifier (unreal_specifier_keyword))))
-        type: (primitive_type)
+     
+   type: (primitive_type)
         declarator: (field_identifier)
         default_value: (number_literal)))))
     
@@ -196,17 +196,14 @@ class UObject : public UObjectBaseUtility
 	DECLARE_CLASS(UObject,UObject,CLASS_Abstract|CLASS_Intrinsic|CLASS_MatchedSerializers,CASTCLASS_None,TEXT("/Script/CoreUObject"),COREUOBJECT_API)
 	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UObject)
 	typedef UObject WithinClass;
-
-	/** Default constructor */
+/** Default constructor */
 	COREUOBJECT_API UObject();
 
 	/** Constructor that takes an ObjectInitializer. */
 	COREUOBJECT_API UObject(const FObjectInitializer& ObjectInitializer);
-
-	/** Utility function for templates below */
+/** Utility function for templates below */
 	COREUOBJECT_API UObject* CreateDefaultSubobject(FName SubobjectFName, UClass* ReturnType, UClass* ClassToCreateByDefault, bool bIsRequired, bool bIsTransient);
 };
-
 ---
 
 (translation_unit
@@ -223,7 +220,8 @@ class UObject : public UObjectBaseUtility
         (binary_expression
           left: (binary_expression
             left: (identifier)
-            right: (identifier))
+            
+right: (identifier))
           right: (identifier))
         (identifier)
         (call_expression
@@ -234,27 +232,28 @@ class UObject : public UObjectBaseUtility
         (unreal_api_specifier))
       (unreal_define_default_object_initializer_macro
         (identifier))
-      (type_definition
+  
+    (type_definition
         type: (type_identifier)
         declarator: (type_identifier))
       (comment)
       (declaration
-        (storage_class_specifier
-          (unreal_api_specifier))
+        (unreal_api_specifier)
         declarator: (function_declarator
           declarator: (identifier)
           parameters: (parameter_list)))
       (comment)
       (declaration
-        (storage_class_specifier
-          (unreal_api_specifier))
+     
+   (unreal_api_specifier)
         declarator: (function_declarator
           declarator: (identifier)
           parameters: (parameter_list
             (parameter_declaration
               (type_qualifier)
               type: (type_identifier)
-              declarator: (reference_declarator
+              declarator: 
+(reference_declarator
                 (identifier))))))
       (comment)
       (field_declaration
@@ -264,20 +263,23 @@ class UObject : public UObjectBaseUtility
         declarator: (pointer_declarator
             declarator: (function_declarator
             declarator: (field_identifier)
-            parameters: (parameter_list
+          
+  parameters: (parameter_list
               (parameter_declaration
                 type: (type_identifier)
                 declarator: (identifier))
               (parameter_declaration
                 type: (type_identifier)
                 declarator: (pointer_declarator
-                  declarator: (identifier)))
+ 
+                 declarator: (identifier)))
               (parameter_declaration
                 type: (type_identifier)
                 declarator: (pointer_declarator
                   declarator: (identifier)))
               (parameter_declaration
-                type: (primitive_type)
+ 
+               type: (primitive_type)
                 declarator: (identifier))
               (parameter_declaration
                 type: (primitive_type)
@@ -289,7 +291,6 @@ Unreal Declaration Macros Test
 ===
 
 DECLARE_LOG_CATEGORY_EXTERN(LogObj, Log, All);
-
 ENUM_CLASS_FLAGS(EEditChangePropagationFlags);
 
 class MyTestClass
@@ -323,7 +324,8 @@ class MyTestClass
 FORCEINLINE Macro Test
 ===
 
-FORCEINLINE bool IsValid(const UObject *Test)
+FORCEINLINE bool 
+IsValid(const UObject *Test)
 {
 	return Test && FInternalUObjectBaseUtilityIsValidFlagsChecker::CheckObjectValidBasedOnItsFlags(Test);
 }
@@ -332,7 +334,8 @@ FORCEINLINE bool IsValid(const UObject *Test)
 
 (translation_unit
   (function_definition
-    (storage_class_specifier (unreal_force_inline))
+    (storage_class_specifier
+        (unreal_force_inline))
     type: (primitive_type)
     declarator: (function_declarator
       declarator: (identifier)
@@ -343,7 +346,8 @@ FORCEINLINE bool IsValid(const UObject *Test)
           declarator: (pointer_declarator
             declarator: (identifier)))))
     body: (compound_statement
-      (return_statement
+    
+  (return_statement
         (binary_expression
           left: (identifier)
           right: (call_expression
@@ -351,7 +355,8 @@ FORCEINLINE bool IsValid(const UObject *Test)
               scope: (namespace_identifier)
               name: (identifier))
             arguments: (argument_list
-              (identifier))))))))
+            
+  (identifier))))))))
 
 
 ===
@@ -360,7 +365,8 @@ FORCEINLINE Member Function Test
 
 class MyClass
 {
-	FORCEINLINE bool Modify(bool bAlwaysMarkDirty = true) { return false; }
+	FORCEINLINE bool Modify(bool bAlwaysMarkDirty = true) { return false;
+}
 	FORCEINLINE bool IsCapturingAsRootObjectForTransaction() const { return false; };
 };
 
@@ -371,23 +377,27 @@ class MyClass
     name: (type_identifier)
     body: (field_declaration_list
       (function_definition
-        (storage_class_specifier (unreal_force_inline))
+        (storage_class_specifier
+            (unreal_force_inline))
         type: (primitive_type)
         declarator: (function_declarator
           declarator: (field_identifier)
           parameters: (parameter_list
             (optional_parameter_declaration
-              type: (primitive_type)
+            
+  type: (primitive_type)
               declarator: (identifier)
               default_value: (true))))
         body: (compound_statement
           (return_statement (false))))
       (function_definition
-        (storage_class_specifier (unreal_force_inline))
+        (storage_class_specifier
+            (unreal_force_inline))
        type: (primitive_type)
         declarator: (function_declarator
           declarator: (field_identifier)
-          parameters: (parameter_list)
+    
+      parameters: (parameter_list)
           (type_qualifier))
         body: (compound_statement
           (return_statement (false)))))))
@@ -398,7 +408,6 @@ Pragma Directive Test
 ===
 
 // Copyright Epic Games, Inc. All Rights Reserved.
-
 #pragma once
 #pragma warning(disable: 4996)
 
@@ -412,3 +421,107 @@ Pragma Directive Test
   (preproc_call
     directive: (preproc_directive)
     argument: (preproc_arg)))
+
+===
+Constructor with API Specifier Test
+===
+
+class AActor : public UObject
+{
+	ENGINE_API AActor();
+	virtual ENGINE_API ~AActor();
+};
+
+---
+
+(translation_unit
+  (class_specifier
+    name: (type_identifier)
+    (base_class_clause
+      (access_specifier)
+      (type_identifier))
+    body: (field_declaration_list
+      (declaration
+        (unreal_api_specifier)
+        declarator: (function_declarator
+          declarator: (identifier)
+          parameters: (parameter_list)))
+      (declaration
+        (storage_class_specifier
+            (unreal_api_specifier))
+        declarator: (function_declarator
+          declarator: (destructor_name
+            (identifier))
+          parameters: (parameter_list))))))
+
+===
+Deprecated Virtual Function Test
+===
+
+class AMyActor
+{
+	UE_DEPRECATED(5.5, "Use NewFunction instead")
+	virtual void OldFunction();
+};
+
+---
+
+(translation_unit
+  (class_specifier
+    name: (type_identifier)
+    body: (field_declaration_list
+      (field_declaration
+        (unreal_deprecated_macro
+          (number_literal)
+          (string_literal
+            (string_content)))
+        type: (primitive_type)
+        declarator: (function_declarator
+          declarator: (field_identifier)
+          parameters: (parameter_list))))))
+
+
+===
+Enum with UMETA Test
+===
+
+UENUM(BlueprintType)
+enum class ESpawnActorScaleMethod : uint8
+{
+	OverrideRootScale UMETA(DisplayName = "Override Root Component Scale"),
+	MultiplyWithRoot UMETA(DisplayName = "Multiply Scale With Root Component Scale"),
+	SelectDefaultAtRuntime UMETA(Hidden),
+};
+
+---
+
+(translation_unit
+  (unreal_enum_declaration
+    (uenum_macro
+      specifiers: (unreal_specifier_list
+        (unreal_specifier (unreal_specifier_keyword))))
+    name: (type_identifier)
+    base: (type_identifier)
+    body: (enumerator_list
+      (enumerator
+        name: (identifier)
+        (umeta_macro
+          (unreal_specifier_list
+            (unreal_specifier
+              key: (unreal_specifier_keyword)
+              value: (string_literal
+                (string_content))))))
+      (enumerator
+        name: (identifier)
+        (umeta_macro
+          (unreal_specifier_list
+            (unreal_specifier
+              key: (unreal_specifier_keyword)
+              value: (string_literal
+                (string_content))))))
+      (enumerator
+        name: (identifier)
+        (umeta_macro
+          (unreal_specifier_list
+            (unreal_specifier
+              (identifier))))))))

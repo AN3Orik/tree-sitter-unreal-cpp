@@ -2213,6 +2213,18 @@
         {
           "type": "type_qualifier",
           "named": true
+        },
+        {
+          "type": "unreal_api_specifier",
+          "named": true
+        },
+        {
+          "type": "unreal_deprecated_macro",
+          "named": true
+        },
+        {
+          "type": "unreal_force_inline",
+          "named": true
         }
       ]
     }
@@ -2544,6 +2556,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "umeta_macro",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -3683,7 +3705,15 @@
           "named": true
         },
         {
+          "type": "unreal_api_specifier",
+          "named": true
+        },
+        {
           "type": "unreal_deprecated_macro",
+          "named": true
+        },
+        {
+          "type": "unreal_force_inline",
           "named": true
         }
       ]
@@ -7704,6 +7734,21 @@
     }
   },
   {
+    "type": "umeta_macro",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "unreal_specifier_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "unary_expression",
     "named": true,
     "fields": {
@@ -8798,6 +8843,10 @@
   },
   {
     "type": "UFUNCTION",
+    "named": false
+  },
+  {
+    "type": "UMETA",
     "named": false
   },
   {

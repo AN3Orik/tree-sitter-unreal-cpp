@@ -103,7 +103,9 @@ module.exports = grammar(C, {
     [$.splice_type_specifier, $.splice_expression],
 
     //unreal
-    [$.storage_class_specifier, $.expression],
+    // [$.storage_class_specifier, $.expression],
+    [$.storage_class_specifier, $.expression, $._constructor_specifiers],
+    [$.storage_class_specifier, $._constructor_specifiers],
     //
   ],
 
@@ -163,6 +165,12 @@ module.exports = grammar(C, {
       original 
     ),
     _pragma_directive_identifier: _ => 'pragma',
+
+
+    enumerator: ($, original) => seq(
+      original,
+      optional($.umeta_macro)
+    ),
 
 
     _block_item: ($, original) => choice(
@@ -298,6 +306,9 @@ module.exports = grammar(C, {
     }),
 
     declaration: $ => seq(
+      // ▼▼▼ 追加: DEPRECATEDマクロを許可 ▼▼▼
+      optional($.unreal_deprecated_macro),
+      // ▲▲▲ 追加完了 ▲▲▲
       $._declaration_specifiers,
       commaSep1(field('declarator', choice(
         seq(
@@ -320,6 +331,9 @@ module.exports = grammar(C, {
     _declaration_modifiers: ($, original) => choice(
       original,
       'virtual',
+      // ▼▼▼ 追加: あらゆる宣言で DEPRECATED マクロを許可する ▼▼▼
+      // $.unreal_deprecated_macro,
+      // ▲▲▲ 追加完了 ▲▲▲
     ),
 
     explicit_function_specifier: $ => choice(
@@ -359,6 +373,7 @@ module.exports = grammar(C, {
       ),
       optional($.attribute_specifier),
     )),
+
 
     _enum_base_clause: $ => prec.left(seq(
       ':',
@@ -620,7 +635,7 @@ module.exports = grammar(C, {
       ';',
     ),
 
-    inline_method_definition: $ => seq(
+    inline_method_definition: $ => prec(1, seq(
       //unreal
       optional($.unreal_deprecated_macro),
       optional($.ufunction_macro),
@@ -633,11 +648,15 @@ module.exports = grammar(C, {
         $.delete_method_clause,
         $.pure_virtual_clause,
       ),
-    ),
+    )),
 
     _constructor_specifiers: $ => choice(
       $._declaration_modifiers,
       $.explicit_function_specifier,
+      // ▼▼▼ 追加: コンストラクタにも API マクロと FORCEINLINE を許可する ▼▼▼
+      $.unreal_api_specifier,
+      $.unreal_force_inline,
+      // ▲▲▲ 追加完了 ▲▲▲
     ),
 
     operator_cast_definition: $ => seq(
@@ -1724,6 +1743,13 @@ module.exports = grammar(C, {
     uclass_macro: $ => seq('UCLASS', '(', field('specifiers', optional($.unreal_specifier_list)), ')'),
     ustruct_macro: $ => seq('USTRUCT', '(', field('specifiers', optional($.unreal_specifier_list)), ')'),
     uenum_macro: $ => seq('UENUM', '(', field('specifiers', optional($.unreal_specifier_list)), ')'),
+
+    umeta_macro: $ => seq(
+      'UMETA',
+      '(',
+      optional($.unreal_specifier_list),
+      ')'
+    ),
     
 
     // 1. セミコロンを含まない基本ルールを定義（名前の先頭に_を追加）
