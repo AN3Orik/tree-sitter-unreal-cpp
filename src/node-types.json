@@ -8107,6 +8107,16 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "unreal_api_specifier",
+          "named": true
+        }
+      ]
     }
   },
   {

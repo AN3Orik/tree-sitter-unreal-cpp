@@ -766,3 +766,36 @@ FORCEINLINE_DEBUGGABLE ENetRole AActor::GetRemoteRole() const
     (compound_statement
       (return_statement
         (identifier)))))
+
+
+=========================================
+Unreal Engine: DECLARE macros with API
+=========================================
+ENGINE_API DECLARE_LOG_CATEGORY_EXTERN(LogActor, Log, All);
+DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_FiveParams(FMyDelegate, UMyClass, MyFunc, int32, A, int32, B, int32, C, int32, D, int32, E);
+---
+(translation_unit
+  (unreal_declaration_macro
+    (unreal_api_specifier)
+    (identifier)
+    (argument_list
+      (identifier)
+      (identifier)
+      (identifier)))
+  (expression_statement
+    (call_expression
+    (identifier)
+    (argument_list
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier)
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier)
+    (identifier)))))

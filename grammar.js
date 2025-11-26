@@ -1882,15 +1882,25 @@ module.exports = grammar(C, {
     ),
 
     // DECLARE_FUNCTION(...); ENUM_CLASS_FLAGS(...); などをキャッチ
+
     unreal_declaration_macro: $ => seq(
+      optional($.unreal_api_specifier),
       field('name', alias(
           choice(
-            'DECLARE_FUNCTION',
-            'DECLARE_LOG_CATEGORY_EXTERN',
-            'ENUM_CLASS_FLAGS'
-            // 他に Object.h で見かけたらここに追加してください
+            // DECLARE_ は引き続き広めに許可（デリゲートなどで多様されるため）
+            token(prec(1, /DECLARE_[A-Z0-9_]+/)),
+
+            // ▼▼▼ 修正: DEFINE_ は LOG 系のみに絞って安全性を確保 ▼▼▼
+            token(prec(1, /DEFINE_LOG_[A-Z0-9_]+/)),
+            // ▲▲▲ 修正完了 ▲▲▲
+
+            // よくあるトップレベルの実装マクロなどもここに追加しておくと安全です
+            'ENUM_CLASS_FLAGS',
+            'IMPLEMENT_MODULE',
+            'IMPLEMENT_GAME_MODULE',
+            'IMPLEMENT_PRIMARY_GAME_MODULE'
           ), 
-          $.identifier // ハイライトのために identifier としてエイリアス
+          $.identifier 
       )),
       field('arguments', $.argument_list),
       ';'

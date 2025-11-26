@@ -18968,6 +18968,18 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "unreal_api_specifier"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "FIELD",
           "name": "name",
           "content": {
@@ -18976,16 +18988,42 @@
               "type": "CHOICE",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "DECLARE_FUNCTION"
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 1,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "DECLARE_[A-Z0-9_]+"
+                    }
+                  }
                 },
                 {
-                  "type": "STRING",
-                  "value": "DECLARE_LOG_CATEGORY_EXTERN"
+                  "type": "TOKEN",
+                  "content": {
+                    "type": "PREC",
+                    "value": 1,
+                    "content": {
+                      "type": "PATTERN",
+                      "value": "DEFINE_LOG_[A-Z0-9_]+"
+                    }
+                  }
                 },
                 {
                   "type": "STRING",
                   "value": "ENUM_CLASS_FLAGS"
+                },
+                {
+                  "type": "STRING",
+                  "value": "IMPLEMENT_MODULE"
+                },
+                {
+                  "type": "STRING",
+                  "value": "IMPLEMENT_GAME_MODULE"
+                },
+                {
+                  "type": "STRING",
+                  "value": "IMPLEMENT_PRIMARY_GAME_MODULE"
                 }
               ]
             },
