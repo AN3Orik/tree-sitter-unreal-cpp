@@ -19013,8 +19013,8 @@
         "type": "PREC",
         "value": 1,
         "content": {
-          "type": "STRING",
-          "value": "FORCEINLINE"
+          "type": "PATTERN",
+          "value": "FORCEINLINE(_[A-Z0-9_]+)?"
         }
       }
     },

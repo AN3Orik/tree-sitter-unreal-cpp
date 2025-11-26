@@ -742,3 +742,27 @@ class MyClass {
              (parameter_declaration (type_identifier) (reference_declarator (identifier)))))
         (compound_statement))
       (unreal_pragma_macro))))
+
+
+=========================================
+Unreal Engine: FORCEINLINE_DEBUGGABLE function definition
+=========================================
+FORCEINLINE_DEBUGGABLE ENetRole AActor::GetRemoteRole() const
+{
+	return RemoteRole;
+}
+---
+(translation_unit
+  (function_definition
+    (storage_class_specifier
+      (unreal_force_inline))
+    (type_identifier)
+    (function_declarator
+      (qualified_identifier
+        (namespace_identifier)
+        (identifier))
+      (parameter_list)
+      (type_qualifier))
+    (compound_statement
+      (return_statement
+        (identifier)))))
