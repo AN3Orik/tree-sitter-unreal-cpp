@@ -1,4 +1,4 @@
-name: Publish packages
+name: Publish binaries
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
 
 permissions:
   contents: write
-  id-token: write
 
 jobs:
   build-binaries:
@@ -35,18 +34,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  npm:
-    uses: tree-sitter/workflows/.github/workflows/package-npm.yml@main
-    secrets: inherit
-    with:
-      generate: true
-  crates:
-    uses: tree-sitter/workflows/.github/workflows/package-crates.yml@main
-    secrets: inherit
-    with:
-      generate: true
-  pypi:
-    uses: tree-sitter/workflows/.github/workflows/package-pypi.yml@main
-    secrets: inherit
-    with:
-      generate: true
+
