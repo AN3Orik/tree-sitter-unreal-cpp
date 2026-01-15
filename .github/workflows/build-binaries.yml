@@ -1,0 +1,73 @@
+name: Build Binaries
+
+on:
+  push:
+    tags: ["*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build ${{ matrix.os }}-${{ matrix.arch }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            arch: x86_64
+            cc: gcc
+            artifact_name: tree-sitter-unreal-cpp-linux-x86_64.so
+          - os: ubuntu-latest
+            arch: aarch64
+            cc: gcc
+            artifact_name: tree-sitter-unreal-cpp-linux-aarch64.so
+          - os: macos-latest
+            arch: x86_64
+            cc: clang
+            artifact_name: tree-sitter-unreal-cpp-darwin-x86_64.dylib
+          - os: macos-14
+            arch: arm64
+            cc: clang
+            artifact_name: tree-sitter-unreal-cpp-darwin-arm64.dylib
+          - os: windows-latest
+            arch: x86_64
+            cc: cl
+            artifact_name: tree-sitter-unreal-cpp-windows-x86_64.dll
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up tree-sitter
+        uses: tree-sitter/setup-action/cli@v2
+
+      - name: Generate parser
+        run: |
+          tree-sitter generate
+
+      - name: Build Linux/macOS
+        if: runner.os != 'Windows'
+        run: |
+          ${{ matrix.cc }} -c -fPIC -Isrc src/parser.c -o parser.o
+          if [ -f src/scanner.c ]; then
+            ${{ matrix.cc }} -c -fPIC -Isrc src/scanner.c -o scanner.o
+          fi
+          ${{ matrix.cc }} -shared -o ${{ matrix.artifact_name }} parser.o scanner.o 2>/dev/null || ${{ matrix.cc }} -shared -o ${{ matrix.artifact_name }} parser.o
+
+      - name: Build Windows
+        if: runner.os == 'Windows'
+        shell: cmd
+        run: |
+          cl /c /Isrc src/parser.c /Foparser.obj
+          if exist src\scanner.c cl /c /Isrc src\scanner.c /Foscanner.obj
+          link /DLL /OUT:${{ matrix.artifact_name }} parser.obj scanner.obj
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: ${{ matrix.artifact_name }}
+          retention-days: 90
