@@ -60,22 +60,22 @@ jobs:
         run: |
           tree-sitter generate
 
-      - name: Build Linux/macOS
-        if: runner.os != 'Windows'
+      - name: Build binary
         run: |
-          ${{ matrix.cc }} -c -fPIC -Isrc src/parser.c -o parser.o
-          if [ -f src/scanner.c ]; then
-            ${{ matrix.cc }} -c -fPIC -Isrc src/scanner.c -o scanner.o
-          fi
-          ${{ matrix.cc }} -shared -o ${{ matrix.artifact_name }} parser.o scanner.o 2>/dev/null || ${{ matrix.cc }} -shared -o ${{ matrix.artifact_name }} parser.o
+          tree-sitter build
 
-      - name: Build Windows
-        if: runner.os == 'Windows'
-        shell: cmd
+      - name: Rename binary
+        shell: bash
         run: |
-          cl /c /Isrc src/parser.c /Foparser.obj
-          if exist src\scanner.c cl /c /Isrc src\scanner.c /Foscanner.obj
-          link /DLL /OUT:${{ matrix.artifact_name }} parser.obj scanner.obj
+          if [ -f tree-sitter-unreal-cpp.*.node ]; then
+            mv tree-sitter-unreal-cpp.*.node ${{ matrix.artifact_name }}
+          elif [ -f tree-sitter-unreal-cpp.*.so ]; then
+            mv tree-sitter-unreal-cpp.*.so ${{ matrix.artifact_name }}
+          elif [ -f tree-sitter-unreal-cpp.*.dylib ]; then
+            mv tree-sitter-unreal-cpp.*.dylib ${{ matrix.artifact_name }}
+          elif [ -f tree-sitter-unreal-cpp.*.dll ]; then
+            mv tree-sitter-unreal-cpp.*.dll ${{ matrix.artifact_name }}
+          fi
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
