@@ -62,20 +62,7 @@ jobs:
 
       - name: Build binary
         run: |
-          tree-sitter build
-
-      - name: Rename binary
-        shell: bash
-        run: |
-          if [ -f tree-sitter-unreal-cpp.*.node ]; then
-            mv tree-sitter-unreal-cpp.*.node ${{ matrix.artifact_name }}
-          elif [ -f tree-sitter-unreal-cpp.*.so ]; then
-            mv tree-sitter-unreal-cpp.*.so ${{ matrix.artifact_name }}
-          elif [ -f tree-sitter-unreal-cpp.*.dylib ]; then
-            mv tree-sitter-unreal-cpp.*.dylib ${{ matrix.artifact_name }}
-          elif [ -f tree-sitter-unreal-cpp.*.dll ]; then
-            mv tree-sitter-unreal-cpp.*.dll ${{ matrix.artifact_name }}
-          fi
+          tree-sitter build -o ${{ matrix.artifact_name }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
