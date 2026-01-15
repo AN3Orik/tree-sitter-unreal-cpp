@@ -17,4 +17,4 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
     return exports;
 }
 
-NODE_API_MODULE(tree_sitter_unreal_cpp_binding, Init)
+ NODE_API_MODULE(tree_sitter_cpp_binding, Init)
