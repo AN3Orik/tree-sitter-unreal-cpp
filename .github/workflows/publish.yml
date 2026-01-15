@@ -11,7 +11,7 @@ permissions:
 jobs:
   build-binaries:
     name: Build native binaries
-    uses: ./.github/workflows/build-binaries.yml@main
+    uses: ./.github/workflows/build-binaries.yml
     secrets: inherit
 
   release:
