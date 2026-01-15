@@ -2,7 +2,7 @@
   "name": "tree-sitter-unreal-cpp",
   "version": "0.24.1",
   "description": "C++ grammar for tree-unreal-sitter",
-  "repository": "https://github.com/tree-sitter/tree-sitter-unreal-cpp",
+  "repository": "https://github.com/taku25/tree-sitter-unreal-cpp",
   "license": "MIT",
   "author": {
     "name": "taku25",
