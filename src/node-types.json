@@ -7838,6 +7838,36 @@
     }
   },
   {
+    "type": "uclass_macro",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "unreal_argument_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "uenum_macro",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "unreal_argument_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "ufunction_macro",
     "named": true,
     "fields": {},
@@ -8055,11 +8085,11 @@
           "named": true
         },
         {
-          "type": "unreal_api_specifier",
+          "type": "uclass_macro",
           "named": true
         },
         {
-          "type": "unreal_argument_list",
+          "type": "unreal_api_specifier",
           "named": true
         }
       ]
@@ -8214,7 +8244,7 @@
           "named": true
         },
         {
-          "type": "unreal_argument_list",
+          "type": "uenum_macro",
           "named": true
         }
       ]
@@ -8445,7 +8475,7 @@
           "named": true
         },
         {
-          "type": "unreal_argument_list",
+          "type": "ustruct_macro",
           "named": true
         }
       ]
@@ -8553,6 +8583,21 @@
         },
         {
           "type": "splice_type_specifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ustruct_macro",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "unreal_argument_list",
           "named": true
         }
       ]

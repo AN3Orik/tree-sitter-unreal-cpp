@@ -18559,12 +18559,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "STRING",
-            "value": "UCLASS"
-          },
-          {
             "type": "SYMBOL",
-            "name": "unreal_argument_list"
+            "name": "uclass_macro"
           },
           {
             "type": "REPEAT",
@@ -18639,12 +18635,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "STRING",
-            "value": "USTRUCT"
-          },
-          {
             "type": "SYMBOL",
-            "name": "unreal_argument_list"
+            "name": "ustruct_macro"
           },
           {
             "type": "REPEAT",
@@ -18719,12 +18711,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "STRING",
-            "value": "UENUM"
-          },
-          {
             "type": "SYMBOL",
-            "name": "unreal_argument_list"
+            "name": "uenum_macro"
           },
           {
             "type": "REPEAT",
