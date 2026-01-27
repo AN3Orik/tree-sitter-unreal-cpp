@@ -838,16 +838,12 @@
           {
             "type": "expression",
             "named": true
-          },
-          {
-            "type": "unreal_meta_key",
-            "named": true
           }
         ]
       },
       "operator": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "%=",
@@ -909,7 +905,7 @@
       },
       "right": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "expression",
@@ -5126,7 +5122,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
@@ -7842,51 +7838,18 @@
     }
   },
   {
-    "type": "uclass_macro",
-    "named": true,
-    "fields": {
-      "specifiers": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "unreal_specifier_list",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "uenum_macro",
-    "named": true,
-    "fields": {
-      "specifiers": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "unreal_specifier_list",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "ufunction_macro",
     "named": true,
-    "fields": {
-      "specifiers": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "unreal_specifier_list",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "unreal_argument_list",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -7895,10 +7858,10 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "unreal_specifier_list",
+          "type": "unreal_argument_list",
           "named": true
         }
       ]
@@ -8023,6 +7986,21 @@
     }
   },
   {
+    "type": "unreal_argument_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "unreal_specifier_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "unreal_body_macro",
     "named": true,
     "fields": {}
@@ -8073,11 +8051,15 @@
           "named": true
         },
         {
-          "type": "uclass_macro",
+          "type": "comment",
           "named": true
         },
         {
           "type": "unreal_api_specifier",
+          "named": true
+        },
+        {
+          "type": "unreal_argument_list",
           "named": true
         }
       ]
@@ -8092,7 +8074,7 @@
         "required": true,
         "types": [
           {
-            "type": "argument_list",
+            "type": "unreal_argument_list",
             "named": true
           }
         ]
@@ -8124,11 +8106,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "unreal_argument_list",
           "named": true
         }
       ]
@@ -8143,7 +8125,7 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "unreal_argument_list",
           "named": true
         }
       ]
@@ -8224,11 +8206,15 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "uenum_macro",
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "unreal_argument_list",
           "named": true
         }
       ]
@@ -8329,27 +8315,7 @@
         "required": false,
         "types": [
           {
-            "type": "false",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "number_literal",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "string_literal",
-            "named": true
-          },
-          {
-            "type": "true",
+            "type": "unreal_specifier_content",
             "named": true
           }
         ]
@@ -8360,11 +8326,46 @@
       "required": false,
       "types": [
         {
+          "type": "unreal_specifier_content",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "unreal_specifier_content",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "false",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
+          "type": "number_literal",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        },
+        {
           "type": "unreal_specifier_keyword",
+          "named": true
+        },
+        {
+          "type": "unreal_specifier_list",
           "named": true
         }
       ]
@@ -8436,11 +8437,15 @@
           "named": true
         },
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "unreal_api_specifier",
           "named": true
         },
         {
-          "type": "ustruct_macro",
+          "type": "unreal_argument_list",
           "named": true
         }
       ]
@@ -8479,17 +8484,16 @@
   {
     "type": "uproperty_macro",
     "named": true,
-    "fields": {
-      "specifiers": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "unreal_specifier_list",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "unreal_argument_list",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -8552,22 +8556,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "ustruct_macro",
-    "named": true,
-    "fields": {
-      "specifiers": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "unreal_specifier_list",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -9722,10 +9710,6 @@
   },
   {
     "type": "unreal_force_inline",
-    "named": true
-  },
-  {
-    "type": "unreal_meta_key",
     "named": true
   },
   {
