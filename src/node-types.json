@@ -1525,6 +1525,10 @@
           "named": true
         },
         {
+          "type": "unreal_api_specifier",
+          "named": true
+        },
+        {
           "type": "virtual_specifier",
           "named": true
         }
@@ -2526,11 +2530,15 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "attribute_specifier",
+          "named": true
+        },
+        {
+          "type": "unreal_api_specifier",
           "named": true
         }
       ]
@@ -7005,6 +7013,10 @@
           "named": true
         },
         {
+          "type": "unreal_api_specifier",
+          "named": true
+        },
+        {
           "type": "virtual_specifier",
           "named": true
         }
@@ -8011,6 +8023,10 @@
         },
         {
           "type": "ms_declspec_modifier",
+          "named": true
+        },
+        {
+          "type": "unreal_api_specifier",
           "named": true
         },
         {
