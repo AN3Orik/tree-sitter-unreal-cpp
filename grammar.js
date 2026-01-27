@@ -276,8 +276,12 @@ module.exports = grammar(C, {
     ),
     _class_declaration_item: $ => prec.right(seq(
       choice(
-        field('name', $._class_name),
         seq(
+          optional($.unreal_api_specifier), // ここに追加！
+          field('name', $._class_name)
+        ),
+        seq(
+          optional($.unreal_api_specifier), // ここにも追加
           optional(field('name', $._class_name)),
           optional($.virtual_specifier),
           optional($.base_class_clause),
@@ -375,6 +379,7 @@ module.exports = grammar(C, {
     enum_specifier: $ => prec.right(seq(
       'enum',
       optional(choice('class', 'struct')),
+      optional($.unreal_api_specifier), // ここに追加！
       choice(
         seq(
           field('name', $._class_name),
