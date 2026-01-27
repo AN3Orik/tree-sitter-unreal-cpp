@@ -12,14 +12,15 @@ class AMyActor : public AActor
 
 (translation_unit
   (unreal_class_declaration
-    (unreal_argument_list
-      (unreal_specifier_list
-        (unreal_specifier
-          (unreal_specifier_content
-            (unreal_specifier_keyword)))
-        (unreal_specifier
-          (unreal_specifier_content
-            (unreal_specifier_keyword)))))
+    (uclass_macro
+      (unreal_argument_list
+        (unreal_specifier_list
+          (unreal_specifier
+            (unreal_specifier_content
+              (unreal_specifier_keyword)))
+          (unreal_specifier
+            (unreal_specifier_content
+              (unreal_specifier_keyword))))))
     name: (type_identifier)
     (base_class_clause
       (access_specifier)
@@ -40,7 +41,8 @@ class MYPROJECT_API AMyActor : public AActor
 
 (translation_unit
   (unreal_class_declaration
-    (unreal_argument_list)
+    (uclass_macro
+      (unreal_argument_list))
     (unreal_api_specifier)
     name: (type_identifier)
     (base_class_clause
@@ -63,11 +65,12 @@ enum class EMyEnum : uint8_t
 
 (translation_unit
   (unreal_enum_declaration
-    (unreal_argument_list
-      (unreal_specifier_list
-        (unreal_specifier
-          (unreal_specifier_content
-            (unreal_specifier_keyword)))))
+    (uenum_macro
+      (unreal_argument_list
+        (unreal_specifier_list
+          (unreal_specifier
+            (unreal_specifier_content
+              (unreal_specifier_keyword))))))
     name: (type_identifier)
     base: (primitive_type)
     body: (enumerator_list
@@ -102,7 +105,8 @@ protected:
 
 (translation_unit
   (unreal_class_declaration
-    (unreal_argument_list)
+    (uclass_macro
+      (unreal_argument_list))
     name: (type_identifier)
     (base_class_clause
       (access_specifier)
@@ -179,11 +183,12 @@ UPROPERTY(EditAnywhere, BlueprintReadWrite)
 
 (translation_unit
   (unreal_struct_declaration
-    (unreal_argument_list
-      (unreal_specifier_list
-        (unreal_specifier
-          (unreal_specifier_content
-            (unreal_specifier_keyword)))))
+    (ustruct_macro
+      (unreal_argument_list
+        (unreal_specifier_list
+          (unreal_specifier
+            (unreal_specifier_content
+              (unreal_specifier_keyword))))))
     name: (type_identifier)
     body: (field_declaration_list
       (unreal_body_macro)
@@ -541,11 +546,12 @@ enum class ESpawnActorScaleMethod : uint8
 
 (translation_unit
   (unreal_enum_declaration
-    (unreal_argument_list
-      (unreal_specifier_list
-        (unreal_specifier
-          (unreal_specifier_content
-            (unreal_specifier_keyword)))))
+    (uenum_macro
+      (unreal_argument_list
+        (unreal_specifier_list
+          (unreal_specifier
+            (unreal_specifier_content
+              (unreal_specifier_keyword))))))
     name: (type_identifier)
     base: (type_identifier)
     body: (enumerator_list
@@ -602,29 +608,30 @@ class AMyClass : public AActor
 
 (translation_unit
   (unreal_class_declaration
-    (unreal_argument_list
-      (unreal_specifier_list
-        (unreal_specifier
-          key: (unreal_specifier_keyword)
-          value: (unreal_specifier_content
-            (unreal_specifier_list
-              (unreal_specifier
-                key: (unreal_specifier_keyword)
-                value: (unreal_specifier_content
-                  (string_literal
-                    (string_content))))
-              (unreal_specifier
-                key: (identifier)
-                value: (unreal_specifier_content
-                  (true)))
-              (unreal_specifier
-                key: (identifier)
-                value: (unreal_specifier_content
-                  (number_literal)))
-              (unreal_specifier
-                key: (identifier)
-                value: (unreal_specifier_content
-                  (identifier))))))))
+    (uclass_macro
+      (unreal_argument_list
+        (unreal_specifier_list
+          (unreal_specifier
+            key: (unreal_specifier_keyword)
+            value: (unreal_specifier_content
+              (unreal_specifier_list
+                (unreal_specifier
+                  key: (unreal_specifier_keyword)
+                  value: (unreal_specifier_content
+                    (string_literal
+                      (string_content))))
+                (unreal_specifier
+                  key: (identifier)
+                  value: (unreal_specifier_content
+                    (true)))
+                (unreal_specifier
+                  key: (identifier)
+                  value: (unreal_specifier_content
+                    (number_literal)))
+                (unreal_specifier
+                  key: (identifier)
+                  value: (unreal_specifier_content
+                    (identifier)))))))))
     name: (type_identifier)
     (base_class_clause
       (access_specifier)
@@ -655,19 +662,20 @@ class AMyClass : public AActor
         type: (primitive_type)
         declarator: (field_identifier))
       (unreal_enum_declaration
-        (unreal_argument_list
-          (unreal_specifier_list
-            (unreal_specifier
-              key: (unreal_specifier_keyword)
-              value: (unreal_specifier_content
-                (unreal_specifier_list
-                  (unreal_specifier
-                    (unreal_specifier_content
-                      (identifier)))
-                  (unreal_specifier
-                    key: (identifier)
-                    value: (unreal_specifier_content
-                      (true))))))))
+        (uenum_macro
+          (unreal_argument_list
+            (unreal_specifier_list
+              (unreal_specifier
+                key: (unreal_specifier_keyword)
+                value: (unreal_specifier_content
+                  (unreal_specifier_list
+                    (unreal_specifier
+                      (unreal_specifier_content
+                        (identifier)))
+                    (unreal_specifier
+                      key: (identifier)
+                      value: (unreal_specifier_content
+                        (true)))))))))
         name: (type_identifier)
         body: (enumerator_list
           (enumerator

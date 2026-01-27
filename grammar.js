@@ -1808,8 +1808,7 @@ module.exports = grammar(C, {
 
     // Standalone rules for Unreal class/struct definitions with high precedence
     unreal_class_declaration: $ => prec(100, seq(
-      'UCLASS',
-      $.unreal_argument_list,
+      $.uclass_macro,
       repeat($.comment),
       'class',
       optional($.unreal_api_specifier),
@@ -1820,8 +1819,7 @@ module.exports = grammar(C, {
     )),
 
     unreal_struct_declaration: $ => prec(100, seq(
-      'USTRUCT',
-      $.unreal_argument_list,
+      $.ustruct_macro,
       repeat($.comment),
       'struct',
       optional($.unreal_api_specifier),
@@ -1832,8 +1830,7 @@ module.exports = grammar(C, {
     )),
 
     unreal_enum_declaration: $ => prec(100, seq(
-      'UENUM',
-      $.unreal_argument_list,
+      $.uenum_macro,
       repeat($.comment),
       'enum',
       optional(choice('class', 'struct')),
