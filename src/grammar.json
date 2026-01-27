@@ -16,6 +16,14 @@
       "members": [
         {
           "type": "PREC",
+          "value": 10000,
+          "content": {
+            "type": "SYMBOL",
+            "name": "unreal_declaration_macro"
+          }
+        },
+        {
+          "type": "PREC",
           "value": 100,
           "content": {
             "type": "SYMBOL",
@@ -172,14 +180,6 @@
           },
           "named": true,
           "value": "declaration"
-        },
-        {
-          "type": "PREC",
-          "value": -1,
-          "content": {
-            "type": "SYMBOL",
-            "name": "unreal_declaration_macro"
-          }
         },
         {
           "type": "SYMBOL",
@@ -5377,116 +5377,165 @@
       ]
     },
     "primitive_type": {
-      "type": "TOKEN",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "bool"
-          },
-          {
-            "type": "STRING",
-            "value": "char"
-          },
-          {
-            "type": "STRING",
-            "value": "int"
-          },
-          {
-            "type": "STRING",
-            "value": "float"
-          },
-          {
-            "type": "STRING",
-            "value": "double"
-          },
-          {
-            "type": "STRING",
-            "value": "void"
-          },
-          {
-            "type": "STRING",
-            "value": "size_t"
-          },
-          {
-            "type": "STRING",
-            "value": "ssize_t"
-          },
-          {
-            "type": "STRING",
-            "value": "ptrdiff_t"
-          },
-          {
-            "type": "STRING",
-            "value": "intptr_t"
-          },
-          {
-            "type": "STRING",
-            "value": "uintptr_t"
-          },
-          {
-            "type": "STRING",
-            "value": "charptr_t"
-          },
-          {
-            "type": "STRING",
-            "value": "nullptr_t"
-          },
-          {
-            "type": "STRING",
-            "value": "max_align_t"
-          },
-          {
-            "type": "STRING",
-            "value": "int8_t"
-          },
-          {
-            "type": "STRING",
-            "value": "int16_t"
-          },
-          {
-            "type": "STRING",
-            "value": "int32_t"
-          },
-          {
-            "type": "STRING",
-            "value": "int64_t"
-          },
-          {
-            "type": "STRING",
-            "value": "uint8_t"
-          },
-          {
-            "type": "STRING",
-            "value": "uint16_t"
-          },
-          {
-            "type": "STRING",
-            "value": "uint32_t"
-          },
-          {
-            "type": "STRING",
-            "value": "uint64_t"
-          },
-          {
-            "type": "STRING",
-            "value": "char8_t"
-          },
-          {
-            "type": "STRING",
-            "value": "char16_t"
-          },
-          {
-            "type": "STRING",
-            "value": "char32_t"
-          },
-          {
-            "type": "STRING",
-            "value": "char64_t"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "TOKEN",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "bool"
+              },
+              {
+                "type": "STRING",
+                "value": "char"
+              },
+              {
+                "type": "STRING",
+                "value": "int"
+              },
+              {
+                "type": "STRING",
+                "value": "float"
+              },
+              {
+                "type": "STRING",
+                "value": "double"
+              },
+              {
+                "type": "STRING",
+                "value": "void"
+              },
+              {
+                "type": "STRING",
+                "value": "size_t"
+              },
+              {
+                "type": "STRING",
+                "value": "ssize_t"
+              },
+              {
+                "type": "STRING",
+                "value": "ptrdiff_t"
+              },
+              {
+                "type": "STRING",
+                "value": "intptr_t"
+              },
+              {
+                "type": "STRING",
+                "value": "uintptr_t"
+              },
+              {
+                "type": "STRING",
+                "value": "charptr_t"
+              },
+              {
+                "type": "STRING",
+                "value": "nullptr_t"
+              },
+              {
+                "type": "STRING",
+                "value": "max_align_t"
+              },
+              {
+                "type": "STRING",
+                "value": "int8_t"
+              },
+              {
+                "type": "STRING",
+                "value": "int16_t"
+              },
+              {
+                "type": "STRING",
+                "value": "int32_t"
+              },
+              {
+                "type": "STRING",
+                "value": "int64_t"
+              },
+              {
+                "type": "STRING",
+                "value": "uint8_t"
+              },
+              {
+                "type": "STRING",
+                "value": "uint16_t"
+              },
+              {
+                "type": "STRING",
+                "value": "uint32_t"
+              },
+              {
+                "type": "STRING",
+                "value": "uint64_t"
+              },
+              {
+                "type": "STRING",
+                "value": "char8_t"
+              },
+              {
+                "type": "STRING",
+                "value": "char16_t"
+              },
+              {
+                "type": "STRING",
+                "value": "char32_t"
+              },
+              {
+                "type": "STRING",
+                "value": "char64_t"
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "type": "STRING",
+          "value": "int8"
+        },
+        {
+          "type": "STRING",
+          "value": "uint8"
+        },
+        {
+          "type": "STRING",
+          "value": "int16"
+        },
+        {
+          "type": "STRING",
+          "value": "uint16"
+        },
+        {
+          "type": "STRING",
+          "value": "int32"
+        },
+        {
+          "type": "STRING",
+          "value": "uint32"
+        },
+        {
+          "type": "STRING",
+          "value": "int64"
+        },
+        {
+          "type": "STRING",
+          "value": "uint64"
+        },
+        {
+          "type": "STRING",
+          "value": "FString"
+        },
+        {
+          "type": "STRING",
+          "value": "FName"
+        },
+        {
+          "type": "STRING",
+          "value": "FText"
+        }
+      ]
     },
     "enum_specifier": {
       "type": "PREC_RIGHT",
@@ -5759,6 +5808,14 @@
           "name": "unreal_define_default_object_initializer_macro"
         },
         {
+          "type": "PREC",
+          "value": 100,
+          "content": {
+            "type": "SYMBOL",
+            "name": "unreal_declaration_macro"
+          }
+        },
+        {
           "type": "SYMBOL",
           "name": "unreal_enum_declaration"
         },
@@ -5914,206 +5971,210 @@
       ]
     },
     "field_declaration": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "unreal_deprecated_macro"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "uproperty_macro"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_declaration_specifiers"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
-                      "type": "FIELD",
-                      "name": "declarator",
-                      "content": {
-                        "type": "SYMBOL",
-                        "name": "_field_declarator"
-                      }
-                    },
-                    {
-                      "type": "CHOICE",
-                      "members": [
-                        {
-                          "type": "CHOICE",
-                          "members": [
-                            {
-                              "type": "SYMBOL",
-                              "name": "bitfield_clause"
-                            },
-                            {
-                              "type": "FIELD",
-                              "name": "default_value",
-                              "content": {
-                                "type": "SYMBOL",
-                                "name": "initializer_list"
-                              }
-                            },
-                            {
-                              "type": "SEQ",
-                              "members": [
-                                {
-                                  "type": "STRING",
-                                  "value": "="
-                                },
-                                {
-                                  "type": "FIELD",
-                                  "name": "default_value",
-                                  "content": {
-                                    "type": "CHOICE",
-                                    "members": [
-                                      {
-                                        "type": "SYMBOL",
-                                        "name": "expression"
-                                      },
-                                      {
-                                        "type": "SYMBOL",
-                                        "name": "initializer_list"
-                                      }
-                                    ]
-                                  }
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        {
-                          "type": "BLANK"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "REPEAT",
-                  "content": {
+      "type": "PREC",
+      "value": 10,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "unreal_deprecated_macro"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "uproperty_macro"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_declaration_specifiers"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
                     "type": "SEQ",
                     "members": [
                       {
-                        "type": "STRING",
-                        "value": ","
+                        "type": "FIELD",
+                        "name": "declarator",
+                        "content": {
+                          "type": "SYMBOL",
+                          "name": "_field_declarator"
+                        }
                       },
                       {
-                        "type": "SEQ",
+                        "type": "CHOICE",
                         "members": [
-                          {
-                            "type": "FIELD",
-                            "name": "declarator",
-                            "content": {
-                              "type": "SYMBOL",
-                              "name": "_field_declarator"
-                            }
-                          },
                           {
                             "type": "CHOICE",
                             "members": [
                               {
-                                "type": "CHOICE",
+                                "type": "SYMBOL",
+                                "name": "bitfield_clause"
+                              },
+                              {
+                                "type": "FIELD",
+                                "name": "default_value",
+                                "content": {
+                                  "type": "SYMBOL",
+                                  "name": "initializer_list"
+                                }
+                              },
+                              {
+                                "type": "SEQ",
                                 "members": [
                                   {
-                                    "type": "SYMBOL",
-                                    "name": "bitfield_clause"
+                                    "type": "STRING",
+                                    "value": "="
                                   },
                                   {
                                     "type": "FIELD",
                                     "name": "default_value",
                                     "content": {
-                                      "type": "SYMBOL",
-                                      "name": "initializer_list"
-                                    }
-                                  },
-                                  {
-                                    "type": "SEQ",
-                                    "members": [
-                                      {
-                                        "type": "STRING",
-                                        "value": "="
-                                      },
-                                      {
-                                        "type": "FIELD",
-                                        "name": "default_value",
-                                        "content": {
-                                          "type": "CHOICE",
-                                          "members": [
-                                            {
-                                              "type": "SYMBOL",
-                                              "name": "expression"
-                                            },
-                                            {
-                                              "type": "SYMBOL",
-                                              "name": "initializer_list"
-                                            }
-                                          ]
+                                      "type": "CHOICE",
+                                      "members": [
+                                        {
+                                          "type": "SYMBOL",
+                                          "name": "expression"
+                                        },
+                                        {
+                                          "type": "SYMBOL",
+                                          "name": "initializer_list"
                                         }
-                                      }
-                                    ]
+                                      ]
+                                    }
                                   }
                                 ]
-                              },
-                              {
-                                "type": "BLANK"
                               }
                             ]
+                          },
+                          {
+                            "type": "BLANK"
                           }
                         ]
                       }
                     ]
+                  },
+                  {
+                    "type": "REPEAT",
+                    "content": {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": ","
+                        },
+                        {
+                          "type": "SEQ",
+                          "members": [
+                            {
+                              "type": "FIELD",
+                              "name": "declarator",
+                              "content": {
+                                "type": "SYMBOL",
+                                "name": "_field_declarator"
+                              }
+                            },
+                            {
+                              "type": "CHOICE",
+                              "members": [
+                                {
+                                  "type": "CHOICE",
+                                  "members": [
+                                    {
+                                      "type": "SYMBOL",
+                                      "name": "bitfield_clause"
+                                    },
+                                    {
+                                      "type": "FIELD",
+                                      "name": "default_value",
+                                      "content": {
+                                        "type": "SYMBOL",
+                                        "name": "initializer_list"
+                                      }
+                                    },
+                                    {
+                                      "type": "SEQ",
+                                      "members": [
+                                        {
+                                          "type": "STRING",
+                                          "value": "="
+                                        },
+                                        {
+                                          "type": "FIELD",
+                                          "name": "default_value",
+                                          "content": {
+                                            "type": "CHOICE",
+                                            "members": [
+                                              {
+                                                "type": "SYMBOL",
+                                                "name": "expression"
+                                              },
+                                              {
+                                                "type": "SYMBOL",
+                                                "name": "initializer_list"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "BLANK"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
                   }
-                }
-              ]
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "attribute_specifier"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "STRING",
-          "value": ";"
-        }
-      ]
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "attribute_specifier"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": ";"
+          }
+        ]
+      }
     },
     "_field_declaration_declarator": {
       "type": "SEQ",
@@ -18335,6 +18396,18 @@
               "name": "false"
             },
             {
+              "type": "STRING",
+              "value": "*"
+            },
+            {
+              "type": "STRING",
+              "value": "&"
+            },
+            {
+              "type": "STRING",
+              "value": "const"
+            },
+            {
               "type": "SEQ",
               "members": [
                 {
@@ -18362,38 +18435,61 @@
             {
               "type": "TOKEN",
               "content": {
-                "type": "PATTERN",
-                "value": "[^,() \\t\\n=\"]+"
+                "type": "PREC",
+                "value": -1,
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[^,() \\t\\n=\"]+"
+                }
               }
             }
           ]
         }
       }
     },
-    "unreal_specifier_list": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "unreal_specifier"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
+    "_unreal_macro_content": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "TOKEN",
+            "content": {
+              "type": "PREC",
+              "value": 10,
+              "content": {
+                "type": "PATTERN",
+                "value": "[^()]+"
+              }
+            }
+          },
+          {
             "type": "SEQ",
             "members": [
               {
                 "type": "STRING",
-                "value": ","
+                "value": "("
               },
               {
-                "type": "SYMBOL",
-                "name": "unreal_specifier"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_unreal_macro_content"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "STRING",
+                "value": ")"
               }
             ]
           }
-        }
-      ]
+        ]
+      }
     },
     "unreal_argument_list": {
       "type": "SEQ",
@@ -18419,6 +18515,10 @@
           "value": ")"
         }
       ]
+    },
+    "_unreal_macro_arguments": {
+      "type": "SYMBOL",
+      "name": "unreal_argument_list"
     },
     "unreal_api_specifier": {
       "type": "TOKEN",
@@ -18487,8 +18587,21 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "GENERATED_BODY"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "GENERATED_BODY"
+            },
+            {
+              "type": "STRING",
+              "value": "GENERATED_UCLASS_BODY"
+            },
+            {
+              "type": "STRING",
+              "value": "GENERATED_USTRUCT_BODY"
+            }
+          ]
         },
         {
           "type": "STRING",
@@ -18790,37 +18903,8 @@
       }
     },
     "unreal_deprecated_macro": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "UE_DEPRECATED"
-        },
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
-          "type": "SYMBOL",
-          "name": "expression"
-        },
-        {
-          "type": "STRING",
-          "value": ","
-        },
-        {
-          "type": "SYMBOL",
-          "name": "string_literal"
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        }
-      ]
-    },
-    "unreal_declaration_macro": {
       "type": "PREC",
-      "value": 1,
+      "value": 100,
       "content": {
         "type": "SEQ",
         "members": [
@@ -18828,13 +18912,161 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "SYMBOL",
-                "name": "unreal_api_specifier"
+                "type": "STRING",
+                "value": "UE_DEPRECATED"
               },
               {
-                "type": "BLANK"
+                "type": "STRING",
+                "value": "UE_DEPRECATED_FORGAME"
               }
             ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_unreal_macro_arguments"
+          }
+        ]
+      }
+    },
+    "unreal_specifier_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "unreal_specifier"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "unreal_specifier"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "unreal_delegate_macro_name": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DECLARE_DELEGATE"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_DELEGATE_RetVal"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_DELEGATE_OneParam"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_DELEGATE_RetVal_OneParam"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_DELEGATE_TwoParams"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_DELEGATE_RetVal_TwoParams"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_DELEGATE_ThreeParams"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_DELEGATE_RetVal_ThreeParams"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_DELEGATE_FourParams"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_DELEGATE_RetVal_FourParams"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_DELEGATE_FiveParams"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_DELEGATE_RetVal_FiveParams"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_MULTICAST_DELEGATE"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_MULTICAST_DELEGATE_OneParam"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_MULTICAST_DELEGATE_TwoParams"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_DYNAMIC_DELEGATE"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_DYNAMIC_DELEGATE_RetVal"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_DYNAMIC_DELEGATE_OneParam"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_DYNAMIC_MULTICAST_DELEGATE"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_EVENT"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE_TS_MULTICAST_DELEGATE"
+        }
+      ]
+    },
+    "unreal_declaration_macro": {
+      "type": "PREC_LEFT",
+      "value": 3000,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "api",
+            "content": {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "unreal_api_specifier"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
           },
           {
             "type": "FIELD",
@@ -18842,39 +19074,187 @@
             "content": {
               "type": "ALIAS",
               "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "TOKEN",
-                    "content": {
-                      "type": "PREC",
-                      "value": 1,
-                      "content": {
+                "type": "TOKEN",
+                "content": {
+                  "type": "PREC",
+                  "value": 10,
+                  "content": {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_RetVal"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_OneParam"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_RetVal_OneParam"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_TwoParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_RetVal_TwoParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_ThreeParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_RetVal_ThreeParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_FourParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_RetVal_FourParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_FiveParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_RetVal_FiveParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_SixParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_RetVal_SixParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_SevenParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_RetVal_SevenParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_EightParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_RetVal_EightParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_NineParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DELEGATE_RetVal_NineParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_MULTICAST_DELEGATE"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_MULTICAST_DELEGATE_OneParam"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_MULTICAST_DELEGATE_TwoParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DYNAMIC_DELEGATE"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DYNAMIC_DELEGATE_RetVal"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DYNAMIC_DELEGATE_OneParam"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DYNAMIC_MULTICAST_DELEGATE"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_OneParam"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_TwoParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_ThreeParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_FourParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_FiveParams"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_EVENT"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DECLARE_TS_MULTICAST_DELEGATE"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "DEPRECATED_CHARACTER_MOVEMENT_RPC"
+                      },
+                      {
                         "type": "PATTERN",
                         "value": "DECLARE_[A-Z0-9_]+"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "ENUM_CLASS_FLAGS"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "IMPLEMENT_MODULE"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "IMPLEMENT_GAME_MODULE"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "IMPLEMENT_PRIMARY_GAME_MODULE"
                       }
-                    }
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "ENUM_CLASS_FLAGS"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "IMPLEMENT_MODULE"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "IMPLEMENT_GAME_MODULE"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "IMPLEMENT_PRIMARY_GAME_MODULE"
+                    ]
                   }
-                ]
+                }
               },
               "named": true,
-              "value": "identifier"
+              "value": "unreal_macro_name"
             }
           },
           {
@@ -19110,9 +19490,6 @@
     [
       "declaration",
       "_declaration_modifiers"
-    ],
-    [
-      "unreal_declaration_macro"
     ],
     [
       "unreal_class_declaration"

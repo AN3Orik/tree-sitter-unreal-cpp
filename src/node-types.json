@@ -6361,6 +6361,11 @@
     }
   },
   {
+    "type": "primitive_type",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "private_module_fragment_declaration",
     "named": true,
     "fields": {}
@@ -8099,6 +8104,16 @@
     "type": "unreal_declaration_macro",
     "named": true,
     "fields": {
+      "api": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "unreal_api_specifier",
+            "named": true
+          }
+        ]
+      },
       "arguments": {
         "multiple": false,
         "required": true,
@@ -8114,21 +8129,11 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "unreal_macro_name",
             "named": true
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "unreal_api_specifier",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -8166,11 +8171,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "unreal_argument_list",
           "named": true
         }
       ]
@@ -9033,7 +9038,27 @@
     "named": false
   },
   {
+    "type": "FName",
+    "named": false
+  },
+  {
+    "type": "FString",
+    "named": false
+  },
+  {
+    "type": "FText",
+    "named": false
+  },
+  {
     "type": "GENERATED_BODY",
+    "named": false
+  },
+  {
+    "type": "GENERATED_UCLASS_BODY",
+    "named": false
+  },
+  {
+    "type": "GENERATED_USTRUCT_BODY",
     "named": false
   },
   {
@@ -9114,6 +9139,10 @@
   },
   {
     "type": "UE_DEPRECATED",
+    "named": false
+  },
+  {
+    "type": "UE_DEPRECATED_FORGAME",
     "named": false
   },
   {
@@ -9510,6 +9539,22 @@
     "named": false
   },
   {
+    "type": "int16",
+    "named": false
+  },
+  {
+    "type": "int32",
+    "named": false
+  },
+  {
+    "type": "int64",
+    "named": false
+  },
+  {
+    "type": "int8",
+    "named": false
+  },
+  {
     "type": "literal_suffix",
     "named": true
   },
@@ -9603,10 +9648,6 @@
   },
   {
     "type": "preproc_arg",
-    "named": true
-  },
-  {
-    "type": "primitive_type",
     "named": true
   },
   {
@@ -9746,6 +9787,22 @@
     "named": false
   },
   {
+    "type": "uint16",
+    "named": false
+  },
+  {
+    "type": "uint32",
+    "named": false
+  },
+  {
+    "type": "uint64",
+    "named": false
+  },
+  {
+    "type": "uint8",
+    "named": false
+  },
+  {
     "type": "union",
     "named": false
   },
@@ -9755,6 +9812,10 @@
   },
   {
     "type": "unreal_force_inline",
+    "named": true
+  },
+  {
+    "type": "unreal_macro_name",
     "named": true
   },
   {

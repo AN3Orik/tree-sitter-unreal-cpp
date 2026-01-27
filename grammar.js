@@ -108,7 +108,6 @@ module.exports = grammar(C, {
         [$.storage_class_specifier, $._constructor_specifiers],
           // ▼▼▼ 追加: UE_DEPRECATED の競合解決 ▼▼▼
               [$.declaration, $._declaration_modifiers],
-              [$.unreal_declaration_macro],
               [$.unreal_class_declaration],
               [$.unreal_struct_declaration],
                   [$.unreal_enum_declaration],
@@ -129,6 +128,7 @@ module.exports = grammar(C, {
   rules: {
 
     _top_level_item: ($, original) => choice(
+      prec(10000, $.unreal_declaration_macro), // 最優先に引き上げ
       //start unreal engien
       prec(100, $.unreal_class_declaration),
       prec(100, $.unreal_struct_declaration),
@@ -155,7 +155,6 @@ module.exports = grammar(C, {
 
 
       //unreal
-      prec(-1, $.unreal_declaration_macro),
       $.unreal_pragma_macro,
       //unreal
     ),
@@ -609,6 +608,7 @@ module.exports = grammar(C, {
       $.unreal_body_macro,
       $.unreal_declare_class_macro,
       $.unreal_define_default_object_initializer_macro,
+      prec(100, $.unreal_declaration_macro), // ここに移動し、優先度を上げる
 // ▼▼▼ 追加: UENUM, USTRUCT, UCLASS, UFUNCTION を許可 ▼▼▼
       $.unreal_enum_declaration,
       $.unreal_struct_declaration,
@@ -640,7 +640,7 @@ module.exports = grammar(C, {
     // ---------------------------------------------------------
     // 2. field_declaration から ufunction_macro を削除
     // ---------------------------------------------------------
-    field_declaration: $ => seq(
+    field_declaration: $ => prec(10, seq(
       //unreal
       optional($.unreal_deprecated_macro),
       
@@ -659,8 +659,8 @@ module.exports = grammar(C, {
         )),
       )),
       optional($.attribute_specifier),
-      ';',
-    ),
+      ';'
+    )),
     // ---------------------------------------------------------
     // 3. 新規追加: UFUNCTION 専用の宣言ルール (プロトタイプ)
     // ---------------------------------------------------------
@@ -1771,19 +1771,25 @@ module.exports = grammar(C, {
       $.number_literal,
       $.true,
       $.false,
+      '*', '&', 'const', // 追加: ポインタ、参照、const
       // ネストしたカッコ (TEXT(...) や meta=(...) など)
       seq('(', optional($.unreal_specifier_list), ')'),
       // フォールバック: カンマ、カッコ、等号、クォート以外の任意の文字列
-      token(/[^,() \t\n="]+/)
+      token(prec(-1, /[^,() \t\n="]+/))
     ))),
 
-    unreal_specifier_list: $ => commaSep1($.unreal_specifier),
+    _unreal_macro_content: $ => repeat1(choice(
+      token(prec(10, /[^()]+/)),
+      seq('(', optional($._unreal_macro_content), ')')
+    )),
 
     unreal_argument_list: $ => seq(
       '(',
       optional($.unreal_specifier_list),
       ')'
     ),
+
+    _unreal_macro_arguments: $ => $.unreal_argument_list,
 
     unreal_api_specifier: $ => token(prec(1, /[A-Z0-9_]+_API/)),
 
@@ -1793,7 +1799,15 @@ module.exports = grammar(C, {
 
     umeta_macro: $ => seq('UMETA', $.unreal_argument_list),
 
-    unreal_body_macro: $ => seq('GENERATED_BODY', '(', ')'),
+    primitive_type: (_, original) => choice(
+      original,
+      'int8', 'uint8', 'int16', 'uint16', 'int32', 'uint32', 'int64', 'uint64', 'FString', 'FName', 'FText'
+    ),
+
+    unreal_body_macro: $ => seq(
+      choice('GENERATED_BODY', 'GENERATED_UCLASS_BODY', 'GENERATED_USTRUCT_BODY'),
+      '(', ')'
+    ),
 
     unreal_declare_class_macro: $ => seq(
       'DECLARE_CLASS',
@@ -1840,39 +1854,62 @@ module.exports = grammar(C, {
       optional(';')
     )),
 
-    unreal_deprecated_macro: $ => seq(
-        'UE_DEPRECATED',
-        '(',
-        $.expression, // 5.1 などをパース
-        ',',
-        $.string_literal,
-        ')'
-    ),
+    unreal_deprecated_macro: $ => prec(100, seq(
+        choice('UE_DEPRECATED', 'UE_DEPRECATED_FORGAME'),
+        $._unreal_macro_arguments
+    )),
 
     // DECLARE_FUNCTION(...); ENUM_CLASS_FLAGS(...); などをキャッチ
 
-    unreal_declaration_macro: $ => prec(1, seq(
-      optional($.unreal_api_specifier),
-      field('name', alias(
-          choice(
-            // DECLARE_ は引き続き広めに許可（デリゲートなどで多様されるため）
-            token(prec(1, /DECLARE_[A-Z0-9_]+/)),
+    // 専用の緩い引数リスト定義
+    unreal_specifier_list: $ => commaSep1($.unreal_specifier),
 
-            // よくあるトップレベルの実装マクロなどもここに追加しておくと安全です
+    // --- Unreal Delegate & Declaration Macros ---
+    unreal_delegate_macro_name: $ => choice(
+        'DECLARE_DELEGATE', 'DECLARE_DELEGATE_RetVal', 'DECLARE_DELEGATE_OneParam', 
+        'DECLARE_DELEGATE_RetVal_OneParam', 'DECLARE_DELEGATE_TwoParams', 'DECLARE_DELEGATE_RetVal_TwoParams',
+        'DECLARE_DELEGATE_ThreeParams', 'DECLARE_DELEGATE_RetVal_ThreeParams', 'DECLARE_DELEGATE_FourParams',
+        'DECLARE_DELEGATE_RetVal_FourParams', 'DECLARE_DELEGATE_FiveParams', 'DECLARE_DELEGATE_RetVal_FiveParams',
+        'DECLARE_MULTICAST_DELEGATE', 'DECLARE_MULTICAST_DELEGATE_OneParam', 'DECLARE_MULTICAST_DELEGATE_TwoParams',
+        'DECLARE_DYNAMIC_DELEGATE', 'DECLARE_DYNAMIC_DELEGATE_RetVal', 'DECLARE_DYNAMIC_DELEGATE_OneParam',
+        'DECLARE_DYNAMIC_MULTICAST_DELEGATE', 'DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam',
+        'DECLARE_EVENT', 'DECLARE_TS_MULTICAST_DELEGATE'
+    ),
+
+    unreal_declaration_macro: $ => prec.left(3000, seq(
+      field('api', optional($.unreal_api_specifier)),
+      field('name', alias(
+        token(prec(10, choice(
+            'DECLARE_DELEGATE', 'DECLARE_DELEGATE_RetVal', 'DECLARE_DELEGATE_OneParam', 
+            'DECLARE_DELEGATE_RetVal_OneParam', 'DECLARE_DELEGATE_TwoParams', 'DECLARE_DELEGATE_RetVal_TwoParams',
+            'DECLARE_DELEGATE_ThreeParams', 'DECLARE_DELEGATE_RetVal_ThreeParams', 'DECLARE_DELEGATE_FourParams',
+            'DECLARE_DELEGATE_RetVal_FourParams', 'DECLARE_DELEGATE_FiveParams', 'DECLARE_DELEGATE_RetVal_FiveParams',
+            'DECLARE_DELEGATE_SixParams', 'DECLARE_DELEGATE_RetVal_SixParams',
+            'DECLARE_DELEGATE_SevenParams', 'DECLARE_DELEGATE_RetVal_SevenParams',
+            'DECLARE_DELEGATE_EightParams', 'DECLARE_DELEGATE_RetVal_EightParams',
+            'DECLARE_DELEGATE_NineParams', 'DECLARE_DELEGATE_RetVal_NineParams',
+            'DECLARE_MULTICAST_DELEGATE', 'DECLARE_MULTICAST_DELEGATE_OneParam', 'DECLARE_MULTICAST_DELEGATE_TwoParams',
+            'DECLARE_DYNAMIC_DELEGATE', 'DECLARE_DYNAMIC_DELEGATE_RetVal', 'DECLARE_DYNAMIC_DELEGATE_OneParam',
+            'DECLARE_DYNAMIC_MULTICAST_DELEGATE', 'DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam',
+            'DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE', 'DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_OneParam',
+            'DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_TwoParams', 'DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_ThreeParams',
+            'DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_FourParams', 'DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_FiveParams',
+            'DECLARE_EVENT', 'DECLARE_TS_MULTICAST_DELEGATE',
+            'DEPRECATED_CHARACTER_MOVEMENT_RPC',
+            /DECLARE_[A-Z0-9_]+/,
             'ENUM_CLASS_FLAGS',
             'IMPLEMENT_MODULE',
             'IMPLEMENT_GAME_MODULE',
             'IMPLEMENT_PRIMARY_GAME_MODULE'
-          ), 
-          $.identifier 
+        ))),
+        $.unreal_macro_name
       )),
       field('arguments', $.unreal_argument_list),
       optional(';')
     )),
     unreal_force_inline: $ => token(prec(1, /FORCEINLINE(_[A-Z0-9_]+)?/)),
     // --- END: UNREAL ENGINE RULES ---
-    unreal_force_inline: $ => token(prec(1, /FORCEINLINE(_[A-Z0-9_]+)?/)),
-    // --- END: UNREAL ENGINE RULES ---
+
     //
     _pragma_argument: _ => token.immediate(prec(-1, /.*/)),
   },
