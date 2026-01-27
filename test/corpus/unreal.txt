@@ -9,12 +9,17 @@ class AMyActor : public AActor
 };
 
 ---
+
 (translation_unit
   (unreal_class_declaration
-    (uclass_macro
-      specifiers: (unreal_specifier_list
-        (unreal_specifier (unreal_specifier_keyword))
-        (unreal_specifier (unreal_specifier_keyword))))
+    (unreal_argument_list
+      (unreal_specifier_list
+        (unreal_specifier
+          (unreal_specifier_content
+            (unreal_specifier_keyword)))
+        (unreal_specifier
+          (unreal_specifier_content
+            (unreal_specifier_keyword)))))
     name: (type_identifier)
     (base_class_clause
       (access_specifier)
@@ -32,9 +37,10 @@ class MYPROJECT_API AMyActor : public AActor
 	GENERATED_BODY()
 };
 ---
+
 (translation_unit
   (unreal_class_declaration
-    (uclass_macro)
+    (unreal_argument_list)
     (unreal_api_specifier)
     name: (type_identifier)
     (base_class_clause
@@ -54,11 +60,14 @@ enum class EMyEnum : uint8_t
 	EME_Val2
 };
 ---
+
 (translation_unit
   (unreal_enum_declaration
-    (uenum_macro
-      specifiers: (unreal_specifier_list
-        (unreal_specifier (unreal_specifier_keyword))))
+    (unreal_argument_list
+      (unreal_specifier_list
+        (unreal_specifier
+          (unreal_specifier_content
+            (unreal_specifier_keyword)))))
     name: (type_identifier)
     base: (primitive_type)
     body: (enumerator_list
@@ -90,9 +99,10 @@ protected:
     }
 };
 ---
+
 (translation_unit
   (unreal_class_declaration
-    (uclass_macro)
+    (unreal_argument_list)
     name: (type_identifier)
     (base_class_clause
       (access_specifier)
@@ -102,39 +112,50 @@ protected:
       (access_specifier)
       (field_declaration
         (uproperty_macro
-          specifiers: (unreal_specifier_list
-            (unreal_specifier (unreal_specifier_keyword))
-            (unreal_specifier (unreal_specifier_keyword))
-     
-       (unreal_specifier
-              key: (unreal_specifier_keyword)
-                  value: (string_literal
-                    (string_content)))))
-            type: (type_identifier)
+          (unreal_argument_list
+            (unreal_specifier_list
+              (unreal_specifier
+                (unreal_specifier_content
+                  (unreal_specifier_keyword)))
+              (unreal_specifier
+                (unreal_specifier_content
+                  (unreal_specifier_keyword)))
+              (unreal_specifier
+                key: (unreal_specifier_keyword)
+                value: (unreal_specifier_content
+                  (string_literal
+                    (string_content)))))))
+        type: (type_identifier)
         declarator: (field_identifier))
-    (unreal_function_declaration
+      (unreal_function_declaration
         (ufunction_macro
-   
-       specifiers: (unreal_specifier_list
-            (unreal_specifier (unreal_specifier_keyword))
-            (unreal_specifier
-              key: (unreal_specifier_keyword)
-              value: (string_literal
-                  (string_content)))))
-            type: (primitive_type)
-      
-      declarator: (function_declarator
+          (unreal_argument_list
+            (unreal_specifier_list
+              (unreal_specifier
+                (unreal_specifier_content
+                  (unreal_specifier_keyword)))
+              (unreal_specifier
+                key: (unreal_specifier_keyword)
+                value: (unreal_specifier_content
+                  (string_literal
+                    (string_content)))))))
+        type: (primitive_type)
+        declarator: (function_declarator
           declarator: (field_identifier)
           parameters: (parameter_list)))
       (access_specifier)
       (function_definition
         (ufunction_macro
-          specifiers: (unreal_specifier_list
-            (unreal_specifier (unreal_specifier_keyword))
-            (unreal_specifier (unreal_specifier_keyword))))
+          (unreal_argument_list
+            (unreal_specifier_list
+              (unreal_specifier
+                (unreal_specifier_content
+                  (unreal_specifier_keyword)))
+              (unreal_specifier
+                (unreal_specifier_content
+                  (unreal_specifier_keyword))))))
         type: (primitive_type)
-     
-   declarator: (function_declarator
+        declarator: (function_declarator
           declarator: (field_identifier)
           parameters: (parameter_list))
         body: (compound_statement
@@ -155,36 +176,46 @@ UPROPERTY(EditAnywhere, BlueprintReadWrite)
     float test = 0.0f;
 };
 ---
+
 (translation_unit
   (unreal_struct_declaration
-    (ustruct_macro
-      specifiers: (unreal_specifier_list
-        (unreal_specifier (unreal_specifier_keyword))))
+    (unreal_argument_list
+      (unreal_specifier_list
+        (unreal_specifier
+          (unreal_specifier_content
+            (unreal_specifier_keyword)))))
     name: (type_identifier)
     body: (field_declaration_list
       (unreal_body_macro)
       (access_specifier)
       (field_declaration
         (uproperty_macro
-          specifiers: (unreal_specifier_list
-            (unreal_specifier (unreal_specifier_keyword))
-            (unreal_specifier (unreal_specifier_keyword))))
-     
-   type: (type_identifier)
+          (unreal_argument_list
+            (unreal_specifier_list
+              (unreal_specifier
+                (unreal_specifier_content
+                  (unreal_specifier_keyword)))
+              (unreal_specifier
+                (unreal_specifier_content
+                  (unreal_specifier_keyword))))))
+        type: (type_identifier)
         declarator: (field_identifier)
         default_value: (qualified_identifier
           scope: (namespace_identifier)
           name: (identifier)))
       (field_declaration
         (uproperty_macro
-          specifiers: (unreal_specifier_list
-            (unreal_specifier (unreal_specifier_keyword))
-            (unreal_specifier (unreal_specifier_keyword))))
-     
-   type: (primitive_type)
+          (unreal_argument_list
+            (unreal_specifier_list
+              (unreal_specifier
+                (unreal_specifier_content
+                  (unreal_specifier_keyword)))
+              (unreal_specifier
+                (unreal_specifier_content
+                  (unreal_specifier_keyword))))))
+        type: (primitive_type)
         declarator: (field_identifier)
         default_value: (number_literal)))))
-    
 
 ===
 UObject Class Definition Test
@@ -215,25 +246,37 @@ class UObject : public UObjectBaseUtility
     body: (field_declaration_list
       (comment)
       (unreal_declare_class_macro
-        (identifier)
-        (identifier)
-        (binary_expression
-          left: (binary_expression
-            left: (identifier)
-            
-right: (identifier))
-          right: (identifier))
-        (identifier)
-        (call_expression
-          function: (identifier)
-          arguments: (argument_list
-            (string_literal
-              (string_content))))
-        (unreal_api_specifier))
+        (unreal_argument_list
+          (unreal_specifier_list
+            (unreal_specifier
+              (unreal_specifier_content
+                (identifier)))
+            (unreal_specifier
+              (unreal_specifier_content
+                (identifier)))
+            (unreal_specifier
+              (unreal_specifier_content))
+            (unreal_specifier
+              (unreal_specifier_content
+                (identifier)))
+            (unreal_specifier
+              (unreal_specifier_content
+                (identifier)
+                (unreal_specifier_list
+                  (unreal_specifier
+                    (unreal_specifier_content
+                      (string_literal
+                        (string_content)))))))
+            (unreal_specifier
+              (unreal_specifier_content
+                (identifier))))))
       (unreal_define_default_object_initializer_macro
-        (identifier))
-  
-    (type_definition
+        (unreal_argument_list
+          (unreal_specifier_list
+            (unreal_specifier
+              (unreal_specifier_content
+                (identifier))))))
+      (type_definition
         type: (type_identifier)
         declarator: (type_identifier))
       (comment)
@@ -244,16 +287,14 @@ right: (identifier))
           parameters: (parameter_list)))
       (comment)
       (declaration
-     
-   (unreal_api_specifier)
+        (unreal_api_specifier)
         declarator: (function_declarator
           declarator: (identifier)
           parameters: (parameter_list
             (parameter_declaration
               (type_qualifier)
               type: (type_identifier)
-              declarator: 
-(reference_declarator
+              declarator: (reference_declarator
                 (identifier))))))
       (comment)
       (field_declaration
@@ -261,30 +302,26 @@ right: (identifier))
           (unreal_api_specifier))
         type: (type_identifier)
         declarator: (pointer_declarator
-            declarator: (function_declarator
+          declarator: (function_declarator
             declarator: (field_identifier)
-          
-  parameters: (parameter_list
+            parameters: (parameter_list
               (parameter_declaration
                 type: (type_identifier)
                 declarator: (identifier))
-              (parameter_declaration
-                type: (type_identifier)
-                declarator: (pointer_declarator
- 
-                 declarator: (identifier)))
               (parameter_declaration
                 type: (type_identifier)
                 declarator: (pointer_declarator
                   declarator: (identifier)))
               (parameter_declaration
- 
-               type: (primitive_type)
+                type: (type_identifier)
+                declarator: (pointer_declarator
+                  declarator: (identifier)))
+              (parameter_declaration
+                type: (primitive_type)
                 declarator: (identifier))
               (parameter_declaration
                 type: (primitive_type)
-               declarator: (identifier)))))))))
-
+                declarator: (identifier)))))))))
 
 ===
 Unreal Declaration Macros Test
@@ -303,22 +340,34 @@ class MyTestClass
 (translation_unit
   (unreal_declaration_macro
     name: (identifier)
-    arguments: (argument_list
-      (identifier)
-      (identifier)
-      (identifier)))
+    arguments: (unreal_argument_list
+      (unreal_specifier_list
+        (unreal_specifier
+          (unreal_specifier_content
+            (identifier)))
+        (unreal_specifier
+          (unreal_specifier_content
+            (identifier)))
+        (unreal_specifier
+          (unreal_specifier_content
+            (identifier))))))
   (unreal_declaration_macro
     name: (identifier)
-    arguments: (argument_list
-      (identifier)))
+    arguments: (unreal_argument_list
+      (unreal_specifier_list
+        (unreal_specifier
+          (unreal_specifier_content
+            (identifier))))))
   (class_specifier
     name: (type_identifier)
     body: (field_declaration_list
       (unreal_declaration_macro
         name: (identifier)
-        arguments: (argument_list
-        (identifier))))))
-
+        arguments: (unreal_argument_list
+          (unreal_specifier_list
+            (unreal_specifier
+              (unreal_specifier_content
+                (identifier)))))))))
 
 ===
 FORCEINLINE Macro Test
@@ -335,19 +384,18 @@ IsValid(const UObject *Test)
 (translation_unit
   (function_definition
     (storage_class_specifier
-        (unreal_force_inline))
+      (unreal_force_inline))
     type: (primitive_type)
     declarator: (function_declarator
       declarator: (identifier)
       parameters: (parameter_list
         (parameter_declaration
           (type_qualifier)
-           type: (type_identifier)
+          type: (type_identifier)
           declarator: (pointer_declarator
             declarator: (identifier)))))
     body: (compound_statement
-    
-  (return_statement
+      (return_statement
         (binary_expression
           left: (identifier)
           right: (call_expression
@@ -355,9 +403,7 @@ IsValid(const UObject *Test)
               scope: (namespace_identifier)
               name: (identifier))
             arguments: (argument_list
-            
-  (identifier))))))))
-
+              (identifier))))))))
 
 ===
 FORCEINLINE Member Function Test
@@ -378,30 +424,29 @@ class MyClass
     body: (field_declaration_list
       (function_definition
         (storage_class_specifier
-            (unreal_force_inline))
+          (unreal_force_inline))
         type: (primitive_type)
         declarator: (function_declarator
           declarator: (field_identifier)
           parameters: (parameter_list
             (optional_parameter_declaration
-            
-  type: (primitive_type)
+              type: (primitive_type)
               declarator: (identifier)
               default_value: (true))))
         body: (compound_statement
-          (return_statement (false))))
+          (return_statement
+            (false))))
       (function_definition
         (storage_class_specifier
-            (unreal_force_inline))
-       type: (primitive_type)
+          (unreal_force_inline))
+        type: (primitive_type)
         declarator: (function_declarator
           declarator: (field_identifier)
-    
-      parameters: (parameter_list)
+          parameters: (parameter_list)
           (type_qualifier))
         body: (compound_statement
-          (return_statement (false)))))))
-
+          (return_statement
+            (false)))))))
 
 ===
 Pragma Directive Test
@@ -448,7 +493,7 @@ class AActor : public UObject
           parameters: (parameter_list)))
       (declaration
         (storage_class_specifier
-            (unreal_api_specifier))
+          (unreal_api_specifier))
         declarator: (function_declarator
           declarator: (destructor_name
             (identifier))
@@ -480,7 +525,6 @@ class AMyActor
           declarator: (field_identifier)
           parameters: (parameter_list))))))
 
-
 ===
 Enum with UMETA Test
 ===
@@ -497,40 +541,46 @@ enum class ESpawnActorScaleMethod : uint8
 
 (translation_unit
   (unreal_enum_declaration
-    (uenum_macro
-      specifiers: (unreal_specifier_list
-        (unreal_specifier (unreal_specifier_keyword))))
+    (unreal_argument_list
+      (unreal_specifier_list
+        (unreal_specifier
+          (unreal_specifier_content
+            (unreal_specifier_keyword)))))
     name: (type_identifier)
     base: (type_identifier)
     body: (enumerator_list
       (enumerator
         name: (identifier)
         (umeta_macro
-          (unreal_specifier_list
-            (unreal_specifier
-              key: (unreal_specifier_keyword)
-              value: (string_literal
-                (string_content))))))
+          (unreal_argument_list
+            (unreal_specifier_list
+              (unreal_specifier
+                key: (unreal_specifier_keyword)
+                value: (unreal_specifier_content
+                  (string_literal
+                    (string_content))))))))
       (enumerator
         name: (identifier)
         (umeta_macro
-          (unreal_specifier_list
-            (unreal_specifier
-              key: (unreal_specifier_keyword)
-              value: (string_literal
-                (string_content))))))
+          (unreal_argument_list
+            (unreal_specifier_list
+              (unreal_specifier
+                key: (unreal_specifier_keyword)
+                value: (unreal_specifier_content
+                  (string_literal
+                    (string_content))))))))
       (enumerator
         name: (identifier)
         (umeta_macro
-          (unreal_specifier_list
-            (unreal_specifier
-              (identifier))))))))
-
-
+          (unreal_argument_list
+            (unreal_specifier_list
+              (unreal_specifier
+                (unreal_specifier_content
+                  (identifier))))))))))
 
 =====
 Meta Specifiers Types Test
-===
+=====
 
 UCLASS(meta=(DisplayName="MyClass", IsAbstract=true, MyID=10, Tag=Actor))
 class AMyClass : public AActor
@@ -552,24 +602,29 @@ class AMyClass : public AActor
 
 (translation_unit
   (unreal_class_declaration
-    (uclass_macro
-      specifiers: (unreal_specifier_list
+    (unreal_argument_list
+      (unreal_specifier_list
         (unreal_specifier
           key: (unreal_specifier_keyword)
-          value: (parenthesized_expression
-                (assignment_expression
-                  left: (unreal_meta_key)
-                  right: (string_literal
-                    (string_content)))
-                (assignment_expression
-                  left: (unreal_meta_key)
-                  right: (true))
-                (assignment_expression
-                  left: (unreal_meta_key)
-                  right: (number_literal))
-                (assignment_expression
-                  left: (unreal_meta_key)
-                  right: (identifier))))))
+          value: (unreal_specifier_content
+            (unreal_specifier_list
+              (unreal_specifier
+                key: (unreal_specifier_keyword)
+                value: (unreal_specifier_content
+                  (string_literal
+                    (string_content))))
+              (unreal_specifier
+                key: (identifier)
+                value: (unreal_specifier_content
+                  (true)))
+              (unreal_specifier
+                key: (identifier)
+                value: (unreal_specifier_content
+                  (number_literal)))
+              (unreal_specifier
+                key: (identifier)
+                value: (unreal_specifier_content
+                  (identifier))))))))
     name: (type_identifier)
     (base_class_clause
       (access_specifier)
@@ -578,51 +633,61 @@ class AMyClass : public AActor
       (unreal_body_macro)
       (field_declaration
         (uproperty_macro
-          specifiers: (unreal_specifier_list
-            (unreal_specifier
-              key: (unreal_specifier_keyword)
-              value: (parenthesized_expression
-                    (assignment_expression
-                      left: (unreal_meta_key)
-                      right: (number_literal))
-                    (assignment_expression
-                      left: (unreal_meta_key)
-                      right: (string_literal
-                        (string_content)))
-                    (assignment_expression
-                      left: (unreal_meta_key)
-                      right: (true))))))
+          (unreal_argument_list
+            (unreal_specifier_list
+              (unreal_specifier
+                key: (unreal_specifier_keyword)
+                value: (unreal_specifier_content
+                  (unreal_specifier_list
+                    (unreal_specifier
+                      key: (identifier)
+                      value: (unreal_specifier_content
+                        (number_literal)))
+                    (unreal_specifier
+                      key: (identifier)
+                      value: (unreal_specifier_content
+                        (string_literal
+                          (string_content))))
+                    (unreal_specifier
+                      key: (identifier)
+                      value: (unreal_specifier_content
+                        (true)))))))))
         type: (primitive_type)
         declarator: (field_identifier))
       (unreal_enum_declaration
-        (uenum_macro
-          specifiers: (unreal_specifier_list
+        (unreal_argument_list
+          (unreal_specifier_list
             (unreal_specifier
               key: (unreal_specifier_keyword)
-              value: (parenthesized_expression
-                    (assignment_expression
-                      left: (unreal_meta_key))
-                    (assignment_expression
-                      left: (unreal_meta_key)
-                      right: (true))))))
+              value: (unreal_specifier_content
+                (unreal_specifier_list
+                  (unreal_specifier
+                    (unreal_specifier_content
+                      (identifier)))
+                  (unreal_specifier
+                    key: (identifier)
+                    value: (unreal_specifier_content
+                      (true))))))))
         name: (type_identifier)
         body: (enumerator_list
           (enumerator
             name: (identifier)
             (umeta_macro
-              (unreal_specifier_list
-                (unreal_specifier
-                (identifier)))))
+              (unreal_argument_list
+                (unreal_specifier_list
+                  (unreal_specifier
+                    (unreal_specifier_content
+                      (identifier)))))))
           (enumerator
             name: (identifier)
             (umeta_macro
-              (unreal_specifier_list
-                (unreal_specifier
-                  key: (unreal_specifier_keyword)
-                  value: (string_literal
-                (string_content)))))))))))
-
-
+              (unreal_argument_list
+                (unreal_specifier_list
+                  (unreal_specifier
+                    key: (unreal_specifier_keyword)
+                    value: (unreal_specifier_content
+                      (string_literal
+                        (string_content)))))))))))))
 
 ===
 Unreal Pragma Macros in Function Scope
@@ -653,7 +718,6 @@ void MyFunction()
           arguments: (argument_list)))
       (unreal_pragma_macro))))
 
-
 =========================================
 Unreal Engine: UE_DEPRECATED and UPROPERTY
 =========================================
@@ -666,6 +730,7 @@ class MyClass {
   ENGINE_API bool AddDataLayer(const UDEPRECATED_DataLayer* DataLayer);
 };
 ---
+
 (translation_unit
   (class_specifier
     (type_identifier)
@@ -676,26 +741,34 @@ class MyClass {
           (string_literal
             (string_content)))
         (uproperty_macro
-          (unreal_specifier_list
-            (unreal_specifier
-              (unreal_specifier_keyword)
-              (identifier))
-            (unreal_specifier
-              (unreal_specifier_keyword))
-            (unreal_specifier
-              (unreal_specifier_keyword))
-            (unreal_specifier
-                  (unreal_specifier_keyword)
-                  (parenthesized_expression
-                    (assignment_expression
-                  (unreal_meta_key)
-                  (true))))
-            (unreal_specifier
-              (identifier)
-              (identifier))
-            (unreal_specifier
-             (identifier)
-              (identifier))))
+          (unreal_argument_list
+            (unreal_specifier_list
+              (unreal_specifier
+                (unreal_specifier_keyword)
+                (unreal_specifier_content
+                  (identifier)))
+              (unreal_specifier
+                (unreal_specifier_content
+                  (unreal_specifier_keyword)))
+              (unreal_specifier
+                (unreal_specifier_content
+                  (unreal_specifier_keyword)))
+              (unreal_specifier
+                (unreal_specifier_keyword)
+                (unreal_specifier_content
+                  (unreal_specifier_list
+                    (unreal_specifier
+                      (identifier)
+                      (unreal_specifier_content
+                        (true))))))
+              (unreal_specifier
+                (identifier)
+                (unreal_specifier_content
+                  (identifier)))
+              (unreal_specifier
+                (identifier)
+                (unreal_specifier_content
+                  (identifier))))))
         (primitive_type)
         (field_identifier))
       (field_declaration
@@ -715,7 +788,6 @@ class MyClass {
               (pointer_declarator
                 (identifier)))))))))
 
-
 =========================================
 Unreal Engine: PRAGMA inside class
 =========================================
@@ -726,6 +798,7 @@ class MyClass {
     PRAGMA_ENABLE_DEPRECATION_WARNINGS
 };
 ---
+
 (translation_unit
   (class_specifier
     (type_identifier)
@@ -734,15 +807,18 @@ class MyClass {
       (function_definition
         (unreal_deprecated_macro
           (number_literal)
-          (string_literal (string_content)))
+          (string_literal
+            (string_content)))
         (primitive_type)
         (function_declarator
           (field_identifier)
           (parameter_list
-             (parameter_declaration (type_identifier) (reference_declarator (identifier)))))
+            (parameter_declaration
+              (type_identifier)
+              (reference_declarator
+                (identifier)))))
         (compound_statement))
       (unreal_pragma_macro))))
-
 
 =========================================
 Unreal Engine: FORCEINLINE_DEBUGGABLE function definition
@@ -752,6 +828,7 @@ FORCEINLINE_DEBUGGABLE ENetRole AActor::GetRemoteRole() const
 	return RemoteRole;
 }
 ---
+
 (translation_unit
   (function_definition
     (storage_class_specifier
@@ -767,35 +844,42 @@ FORCEINLINE_DEBUGGABLE ENetRole AActor::GetRemoteRole() const
       (return_statement
         (identifier)))))
 
-
 =========================================
 Unreal Engine: DECLARE macros with API
 =========================================
 ENGINE_API DECLARE_LOG_CATEGORY_EXTERN(LogActor, Log, All);
 DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_FiveParams(FMyDelegate, UMyClass, MyFunc, int32, A, int32, B, int32, C, int32, D, int32, E);
 ---
+
 (translation_unit
   (unreal_declaration_macro
     (unreal_api_specifier)
     (identifier)
-    (argument_list
-      (identifier)
-      (identifier)
-      (identifier)))
+    (unreal_argument_list
+      (unreal_specifier_list
+        (unreal_specifier
+          (unreal_specifier_content
+            (identifier)))
+        (unreal_specifier
+          (unreal_specifier_content
+            (identifier)))
+        (unreal_specifier
+          (unreal_specifier_content
+            (identifier))))))
   (expression_statement
     (call_expression
-    (identifier)
-    (argument_list
       (identifier)
-      (identifier)
-      (identifier)
-      (identifier)
-      (identifier)
-      (identifier)
-      (identifier)
-    (identifier)
-    (identifier)
-    (identifier)
-    (identifier)
-    (identifier)
-    (identifier)))))
+      (argument_list
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)))))
