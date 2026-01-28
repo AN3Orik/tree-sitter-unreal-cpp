@@ -1772,6 +1772,10 @@ module.exports = grammar(C, {
     unreal_specifier_content: $ => prec.left(repeat1(choice(
       $.string_literal,
       $.unreal_specifier_keyword,
+      // 追加: Qualified identifiers (A::B) や テンプレート風 (A<B>) を一つの塊として扱う
+      prec(10, seq($.identifier, repeat1(seq('::', $.identifier)))),
+      prec(10, seq($.identifier, $.template_argument_list)),
+      
       $.identifier,
       $.number_literal,
       $.true,
