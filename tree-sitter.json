@@ -5,6 +5,8 @@
       "camelcase": "CPP",
       "scope": "source.cpp",
       "path": ".",
+      "class-name": "TreeSitterCpp",
+      "abi": 15,
       "file-types": [
         "cc",
         "cpp",

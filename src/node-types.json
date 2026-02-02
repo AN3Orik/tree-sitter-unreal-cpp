@@ -8408,6 +8408,10 @@
           "named": true
         },
         {
+          "type": "template_argument_list",
+          "named": true
+        },
+        {
           "type": "true",
           "named": true
         },
