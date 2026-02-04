@@ -58,61 +58,65 @@ module.exports = grammar(C, {
     $.raw_string_content,
   ],
 
-  conflicts: $ => [
-    // C
-    [$.type_specifier, $._declarator],
-    [$.type_specifier, $.expression],
-    [$.sized_type_specifier],
-    [$.attributed_statement],
-    [$._declaration_modifiers, $.attributed_statement],
-    [$._declaration_modifiers, $.using_declaration],
-    [$._declaration_modifiers, $.attributed_statement, $.using_declaration],
-    [$._top_level_item, $._top_level_statement],
-    [$._block_item, $.statement],
-    [$.type_qualifier, $.extension_expression],
-
-    // C++
-    [$.template_function, $.template_type],
-    [$.template_function, $.template_type, $.expression],
-    [$.template_function, $.template_type, $.qualified_identifier],
-    [$.template_function, $.template_type, $.qualified_identifier, $.qualified_type_identifier],
-    [$.template_type, $.qualified_type_identifier],
-    [$.qualified_type_identifier, $.qualified_identifier],
-    [$.comma_expression, $.initializer_list],
-    [$.expression, $._declarator],
-    [$.expression, $.structured_binding_declarator],
-    [$.expression, $._declarator, $.type_specifier],
-    [$.expression, $.identifier_parameter_pack_expansion],
-    [$.expression, $._lambda_capture_identifier],
-    [$.expression, $._lambda_capture],
-    [$.expression, $.structured_binding_declarator, $._lambda_capture_identifier],
-    [$.structured_binding_declarator, $._lambda_capture_identifier],
-    [$.parameter_list, $.argument_list],
-    [$.type_specifier, $.call_expression],
-    [$._declaration_specifiers, $._constructor_specifiers],
-    [$._binary_fold_operator, $._fold_operator],
-    [$._function_declarator_seq],
-    [$.type_specifier, $.sized_type_specifier],
-    [$.initializer_pair, $.comma_expression],
-    [$.expression_statement, $._for_statement_body],
-    [$.init_statement, $._for_statement_body],
-    [$.field_expression, $.template_method, $.template_type],
-    [$.field_expression, $.template_method],
-    [$.qualified_field_identifier, $.template_method, $.template_type],
-    [$.type_specifier, $.template_type, $.template_function, $.expression],
-    [$.splice_type_specifier, $.splice_expression],
-
-    //unreal
-    // [$.storage_class_specifier, $.expression],
-    [$.storage_class_specifier, $.expression, $._constructor_specifiers],
-    [$.storage_class_specifier, $._constructor_specifiers],
-  // ▼▼▼ 追加: UE_DEPRECATED の競合解決 ▼▼▼
-    [$.declaration, $._declaration_modifiers],
-    // [$.field_declaration, $._declaration_modifiers], 
-    // ▲▲▲ 追加完了 ▲▲▲  //
-  ],
-
-  inline: ($, original) => original.concat([
+      conflicts: $ => [
+        // C
+        [$.type_specifier, $._declarator],
+        [$.type_specifier, $.expression],
+        [$.sized_type_specifier],
+        [$.attributed_statement],
+        [$._declaration_modifiers, $.attributed_statement],
+        [$._declaration_modifiers, $.using_declaration],
+        [$._declaration_modifiers, $.attributed_statement, $.using_declaration],
+        [$._top_level_item, $._top_level_statement],
+        [$._block_item, $.statement],
+        [$.type_qualifier, $.extension_expression],
+  
+        // C++
+        [$.template_function, $.template_type],
+        [$.template_function, $.template_type, $.expression],
+        [$.template_function, $.template_type, $.qualified_identifier],
+        [$.template_function, $.template_type, $.qualified_identifier, $.qualified_type_identifier],
+        [$.template_type, $.qualified_type_identifier],
+        [$.qualified_type_identifier, $.qualified_identifier],
+        [$.comma_expression, $.initializer_list],
+        [$.expression, $._declarator],
+        [$.expression, $.structured_binding_declarator],
+        [$.expression, $._declarator, $.type_specifier],
+        [$.expression, $.identifier_parameter_pack_expansion],
+        [$.expression, $._lambda_capture_identifier],
+        [$.expression, $._lambda_capture],
+        [$.expression, $.structured_binding_declarator, $._lambda_capture_identifier],
+        [$.structured_binding_declarator, $._lambda_capture_identifier],
+        [$.parameter_list, $.argument_list],
+        [$.type_specifier, $.call_expression],
+        [$._declaration_specifiers, $._constructor_specifiers],
+        [$._binary_fold_operator, $._fold_operator],
+        [$._function_declarator_seq],
+        [$.type_specifier, $.sized_type_specifier],
+        [$.initializer_pair, $.comma_expression],
+        [$.expression_statement, $._for_statement_body],
+        [$.init_statement, $._for_statement_body],
+        [$.field_expression, $.template_method, $.template_type],
+        [$.field_expression, $.template_method],
+        [$.qualified_field_identifier, $.template_method, $.template_type],
+        [$.type_specifier, $.template_type, $.template_function, $.expression],
+        [$.splice_type_specifier, $.splice_expression],
+  
+        //unreal
+        // [$.storage_class_specifier, $.expression],
+        [$.storage_class_specifier, $.expression, $._constructor_specifiers],
+        [$.storage_class_specifier, $._constructor_specifiers],
+          // ▼▼▼ 追加: UE_DEPRECATED の競合解決 ▼▼▼
+              [$.declaration, $._declaration_modifiers],
+              [$.unreal_class_declaration],
+              [$.unreal_struct_declaration],
+                  [$.unreal_enum_declaration],
+                  // [$.field_declaration, $._declaration_modifiers], 
+               
+                                  // ▲▲▲ 追加完了 ▲▲▲  //
+      
+      ],
+    inline: ($, original) => original.concat([
     $._namespace_identifier,
   ]),
 
@@ -124,10 +128,11 @@ module.exports = grammar(C, {
   rules: {
 
     _top_level_item: ($, original) => choice(
+      prec(10000, $.unreal_declaration_macro), // 最優先に引き上げ
       //start unreal engien
-      $.unreal_class_declaration,
-      $.unreal_struct_declaration,
-      $.unreal_enum_declaration, 
+      prec(100, $.unreal_class_declaration),
+      prec(100, $.unreal_struct_declaration),
+      prec(100, $.unreal_enum_declaration), 
       //end unreal engine
       ...original.members.filter((member) => member.content?.name != '_old_style_function_definition'),
       $.namespace_definition,
@@ -150,7 +155,6 @@ module.exports = grammar(C, {
 
 
       //unreal
-      $.unreal_declaration_macro,
       $.unreal_pragma_macro,
       //unreal
     ),
@@ -272,8 +276,12 @@ module.exports = grammar(C, {
     ),
     _class_declaration_item: $ => prec.right(seq(
       choice(
-        field('name', $._class_name),
         seq(
+          optional($.unreal_api_specifier), // ここに追加！
+          field('name', $._class_name)
+        ),
+        seq(
+          optional($.unreal_api_specifier), // ここにも追加
           optional(field('name', $._class_name)),
           optional($.virtual_specifier),
           optional($.base_class_clause),
@@ -371,6 +379,7 @@ module.exports = grammar(C, {
     enum_specifier: $ => prec.right(seq(
       'enum',
       optional(choice('class', 'struct')),
+      optional($.unreal_api_specifier), // ここに追加！
       choice(
         seq(
           field('name', $._class_name),
@@ -604,6 +613,7 @@ module.exports = grammar(C, {
       $.unreal_body_macro,
       $.unreal_declare_class_macro,
       $.unreal_define_default_object_initializer_macro,
+      prec(100, $.unreal_declaration_macro), // ここに移動し、優先度を上げる
 // ▼▼▼ 追加: UENUM, USTRUCT, UCLASS, UFUNCTION を許可 ▼▼▼
       $.unreal_enum_declaration,
       $.unreal_struct_declaration,
@@ -635,7 +645,7 @@ module.exports = grammar(C, {
     // ---------------------------------------------------------
     // 2. field_declaration から ufunction_macro を削除
     // ---------------------------------------------------------
-    field_declaration: $ => seq(
+    field_declaration: $ => prec(10, seq(
       //unreal
       optional($.unreal_deprecated_macro),
       
@@ -654,8 +664,8 @@ module.exports = grammar(C, {
         )),
       )),
       optional($.attribute_specifier),
-      ';',
-    ),
+      ';'
+    )),
     // ---------------------------------------------------------
     // 3. 新規追加: UFUNCTION 専用の宣言ルール (プロトタイプ)
     // ---------------------------------------------------------
@@ -1747,166 +1757,168 @@ module.exports = grammar(C, {
       'DisplayName',
       'ToolTip'
     ),
-// ---------------------------------------------------------
-    // 修正箇所 1: unreal_specifier の順序変更
-    // ---------------------------------------------------------
+
     unreal_specifier: $ => choice(
-      // ▼▼▼ 修正: Key=Value パターンを先に持ってくる ▼▼▼
-      seq(
+      // key = value パターンを最優先
+      prec(20, seq(
         field('key', choice($.unreal_specifier_keyword, $.identifier)),
         '=',
-        field('value', choice(
-          $.string_literal,
-          alias($.unreal_meta_assignment_group, $.parenthesized_expression),
-          $.identifier,
-          $.number_literal,
-          $.true,
-          $.false,
-        )),
-      ),
-      // ▲▲▲ 修正完了 ▲▲▲
+        field('value', $.unreal_specifier_content)
+      )),
+      // 単独の要素、あるいは複雑な式
+      $.unreal_specifier_content
+    ),
 
-      // 単独のキーワードは後にする
+    unreal_specifier_content: $ => prec.left(repeat1(choice(
+      $.string_literal,
       $.unreal_specifier_keyword,
-      $.identifier
-    ),
-    
-    // 新規追加: meta=(...) の中身を専用のノードでラップ
-    unreal_meta_assignment_group: $ => seq(
-      '(',
-      commaSep1(alias($.unreal_meta_assignment, $.assignment_expression)), // 新しい割り当てノードをエイリアス
-      ')',
-    ),
+      // 追加: Qualified identifiers (A::B) や テンプレート風 (A<B>) を一つの塊として扱う
+      prec(10, seq($.identifier, repeat1(seq('::', $.identifier)))),
+      prec(10, seq($.identifier, $.template_argument_list)),
+      
+      $.identifier,
+      $.number_literal,
+      $.true,
+      $.false,
+      '*', '&', 'const', // 追加: ポインタ、参照、const
+      // ネストしたカッコ (TEXT(...) や meta=(...) など)
+      seq('(', optional($.unreal_specifier_list), ')'),
+      // フォールバック: カンマ、カッコ、等号、クォート以外の任意の文字列
+      token(prec(-1, /[^,() \t\n="]+/))
+    ))),
 
-// ---------------------------------------------------------
-    // 修正箇所 2: unreal_meta_assignment で単独キーを許可
-    // ---------------------------------------------------------
-    unreal_meta_assignment: $ => choice(
-      // ▼▼▼ 修正: Bitflags (値なしキー) を許可する ▼▼▼
-      seq(
-        field('left', alias($.identifier, $.unreal_meta_key)),
-        '=',
-        field('right', choice(
-          $.string_literal,
-          $.identifier,
-          $.number_literal,
-          $.true,
-          $.false
-        ))
-      ),
-      // 値なしパターン (例: meta=(Bitflags))
-      field('left', alias($.identifier, $.unreal_meta_key))
-      // ▲▲▲ 修正完了 ▲▲▲
-    ),
+    _unreal_macro_content: $ => repeat1(choice(
+      token(prec(10, /[^()]+/)),
+      seq('(', optional($._unreal_macro_content), ')')
+    )),
 
-    unreal_specifier_list: $ => commaSep1($.unreal_specifier),
-
-    unreal_api_specifier: $ => token(prec(1, /[A-Z0-9_]+_API/)),
-
-    uclass_macro: $ => seq('UCLASS', '(', field('specifiers', optional($.unreal_specifier_list)), ')'),
-    ustruct_macro: $ => seq('USTRUCT', '(', field('specifiers', optional($.unreal_specifier_list)), ')'),
-    uenum_macro: $ => seq('UENUM', '(', field('specifiers', optional($.unreal_specifier_list)), ')'),
-
-    umeta_macro: $ => seq(
-      'UMETA',
+    unreal_argument_list: $ => seq(
       '(',
       optional($.unreal_specifier_list),
       ')'
     ),
 
-    
+    _unreal_macro_arguments: $ => $.unreal_argument_list,
 
-    // 1. セミコロンを含まない基本ルールを定義（名前の先頭に_を追加）
-    // _unreal_body_macro: $ => seq('GENERATED_BODY', '(', ')'),
-    //
-    // // 2. 公開ルールとして、「セミコロンあり」と「セミコロンなし」の両方を選択できるようにする
-    // unreal_body_macro: $ => choice(
-    //     $._unreal_body_macro,               // GENERATED_BODY()
-    //     seq($._unreal_body_macro, ';')      // GENERATED_BODY();
-    // ),
-   unreal_body_macro: $ => seq('GENERATED_BODY', '(', ')'),
+    unreal_api_specifier: $ => token(prec(1, /[A-Z0-9_]+_API/)),
+
+    uclass_macro: $ => seq('UCLASS', $.unreal_argument_list),
+    ustruct_macro: $ => seq('USTRUCT', $.unreal_argument_list),
+    uenum_macro: $ => seq('UENUM', $.unreal_argument_list),
+
+    umeta_macro: $ => seq('UMETA', $.unreal_argument_list),
+
+    primitive_type: (_, original) => choice(
+      original,
+      'int8', 'uint8', 'int16', 'uint16', 'int32', 'uint32', 'int64', 'uint64', 'FString', 'FName', 'FText'
+    ),
+
+    unreal_body_macro: $ => seq(
+      choice('GENERATED_BODY', 'GENERATED_UCLASS_BODY', 'GENERATED_USTRUCT_BODY'),
+      '(', ')'
+    ),
 
     unreal_declare_class_macro: $ => seq(
       'DECLARE_CLASS',
-      '(',
-      commaSep1($.expression),
-      ')'
+      $.unreal_argument_list
     ),
     unreal_define_default_object_initializer_macro: $ => seq(
       'DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL',
-      '(',
-      $.identifier,
-      ')'
+      $.unreal_argument_list
     ),
-    uproperty_macro: $ => seq('UPROPERTY', '(', field('specifiers', optional($.unreal_specifier_list)), ')'),
-    ufunction_macro: $ => seq('UFUNCTION', '(', field('specifiers', optional($.unreal_specifier_list)), ')'),
+    uproperty_macro: $ => seq('UPROPERTY', $.unreal_argument_list),
+    ufunction_macro: $ => seq('UFUNCTION', $.unreal_argument_list),
 
     // Standalone rules for Unreal class/struct definitions with high precedence
-    unreal_class_declaration: $ => prec(2, seq(
+    unreal_class_declaration: $ => prec(100, seq(
       $.uclass_macro,
+      repeat($.comment),
       'class',
       optional($.unreal_api_specifier),
       field('name', $._class_name),
       optional($.base_class_clause),
       field('body', $.field_declaration_list),
-      ';',
+      optional(';'),
     )),
 
-    unreal_struct_declaration: $ => prec(2, seq(
+    unreal_struct_declaration: $ => prec(100, seq(
       $.ustruct_macro,
+      repeat($.comment),
       'struct',
       optional($.unreal_api_specifier),
       field('name', $._class_name),
       optional($.base_class_clause),
       field('body', $.field_declaration_list),
-      ';',
+      optional(';'),
     )),
 
-    unreal_enum_declaration: $ => prec(2, seq(
+    unreal_enum_declaration: $ => prec(100, seq(
       $.uenum_macro,
+      repeat($.comment),
       'enum',
       optional(choice('class', 'struct')),
       field('name', $._class_name),
       optional($._enum_base_clause),
       field('body', $.enumerator_list),
-      ';'
+      optional(';')
     )),
 
-    unreal_deprecated_macro: $ => seq(
-        'UE_DEPRECATED',
-        '(',
-        $.expression, // 5.1 などをパース
-        ',',
-        $.string_literal,
-        ')'
-    ),
+    unreal_deprecated_macro: $ => prec(100, seq(
+        choice('UE_DEPRECATED', 'UE_DEPRECATED_FORGAME'),
+        $._unreal_macro_arguments
+    )),
 
     // DECLARE_FUNCTION(...); ENUM_CLASS_FLAGS(...); などをキャッチ
 
-    unreal_declaration_macro: $ => seq(
-      optional($.unreal_api_specifier),
+    // 専用の緩い引数リスト定義
+    unreal_specifier_list: $ => commaSep1($.unreal_specifier),
+
+    // --- Unreal Delegate & Declaration Macros ---
+    unreal_delegate_macro_name: $ => choice(
+        'DECLARE_DELEGATE', 'DECLARE_DELEGATE_RetVal', 'DECLARE_DELEGATE_OneParam', 
+        'DECLARE_DELEGATE_RetVal_OneParam', 'DECLARE_DELEGATE_TwoParams', 'DECLARE_DELEGATE_RetVal_TwoParams',
+        'DECLARE_DELEGATE_ThreeParams', 'DECLARE_DELEGATE_RetVal_ThreeParams', 'DECLARE_DELEGATE_FourParams',
+        'DECLARE_DELEGATE_RetVal_FourParams', 'DECLARE_DELEGATE_FiveParams', 'DECLARE_DELEGATE_RetVal_FiveParams',
+        'DECLARE_MULTICAST_DELEGATE', 'DECLARE_MULTICAST_DELEGATE_OneParam', 'DECLARE_MULTICAST_DELEGATE_TwoParams',
+        'DECLARE_DYNAMIC_DELEGATE', 'DECLARE_DYNAMIC_DELEGATE_RetVal', 'DECLARE_DYNAMIC_DELEGATE_OneParam',
+        'DECLARE_DYNAMIC_MULTICAST_DELEGATE', 'DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam',
+        'DECLARE_EVENT', 'DECLARE_TS_MULTICAST_DELEGATE'
+    ),
+
+    unreal_declaration_macro: $ => prec.left(3000, seq(
+      field('api', optional($.unreal_api_specifier)),
       field('name', alias(
-          choice(
-            // DECLARE_ は引き続き広めに許可（デリゲートなどで多様されるため）
-            token(prec(1, /DECLARE_[A-Z0-9_]+/)),
-
-            // ▼▼▼ 修正: DEFINE_ は LOG 系のみに絞って安全性を確保 ▼▼▼
-            token(prec(1, /DEFINE_LOG_[A-Z0-9_]+/)),
-            // ▲▲▲ 修正完了 ▲▲▲
-
-            // よくあるトップレベルの実装マクロなどもここに追加しておくと安全です
+        token(prec(10, choice(
+            'DECLARE_DELEGATE', 'DECLARE_DELEGATE_RetVal', 'DECLARE_DELEGATE_OneParam', 
+            'DECLARE_DELEGATE_RetVal_OneParam', 'DECLARE_DELEGATE_TwoParams', 'DECLARE_DELEGATE_RetVal_TwoParams',
+            'DECLARE_DELEGATE_ThreeParams', 'DECLARE_DELEGATE_RetVal_ThreeParams', 'DECLARE_DELEGATE_FourParams',
+            'DECLARE_DELEGATE_RetVal_FourParams', 'DECLARE_DELEGATE_FiveParams', 'DECLARE_DELEGATE_RetVal_FiveParams',
+            'DECLARE_DELEGATE_SixParams', 'DECLARE_DELEGATE_RetVal_SixParams',
+            'DECLARE_DELEGATE_SevenParams', 'DECLARE_DELEGATE_RetVal_SevenParams',
+            'DECLARE_DELEGATE_EightParams', 'DECLARE_DELEGATE_RetVal_EightParams',
+            'DECLARE_DELEGATE_NineParams', 'DECLARE_DELEGATE_RetVal_NineParams',
+            'DECLARE_MULTICAST_DELEGATE', 'DECLARE_MULTICAST_DELEGATE_OneParam', 'DECLARE_MULTICAST_DELEGATE_TwoParams',
+            'DECLARE_DYNAMIC_DELEGATE', 'DECLARE_DYNAMIC_DELEGATE_RetVal', 'DECLARE_DYNAMIC_DELEGATE_OneParam',
+            'DECLARE_DYNAMIC_MULTICAST_DELEGATE', 'DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam',
+            'DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE', 'DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_OneParam',
+            'DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_TwoParams', 'DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_ThreeParams',
+            'DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_FourParams', 'DECLARE_DYNAMIC_MULTICAST_SPARSE_DELEGATE_FiveParams',
+            'DECLARE_EVENT', 'DECLARE_TS_MULTICAST_DELEGATE',
+            'DEPRECATED_CHARACTER_MOVEMENT_RPC',
+            /DECLARE_[A-Z0-9_]+/,
             'ENUM_CLASS_FLAGS',
             'IMPLEMENT_MODULE',
             'IMPLEMENT_GAME_MODULE',
             'IMPLEMENT_PRIMARY_GAME_MODULE'
-          ), 
-          $.identifier 
+        ))),
+        $.unreal_macro_name
       )),
-      field('arguments', $.argument_list),
-      ';'
-    ),
+      field('arguments', $.unreal_argument_list),
+      optional(';')
+    )),
     unreal_force_inline: $ => token(prec(1, /FORCEINLINE(_[A-Z0-9_]+)?/)),
     // --- END: UNREAL ENGINE RULES ---
+
     //
     _pragma_argument: _ => token.immediate(prec(-1, /.*/)),
   },
